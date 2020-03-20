@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { BrowserRouter as AppRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as AppRouter, Route, Switch } from 'react-router-dom'
+import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import NotFound from './NotFound'
+import config from './config';
+import Home from '../components/pages/Home';
 
 // Routes
-import { DefaultLayout, titleTemplate, defaultRoute, routes } from '../routes'
+import { DefaultLayout, titleTemplate, routes } from '../routes'
 
 // ---
 // Main route component
@@ -81,33 +84,35 @@ class Router extends Component {
   render() {
     return (
       <AppRouter basename={process.env.REACT_APP_BASENAME}>
-        <Switch>
-          {this.routes.map(route => (
-            <Route
-              path={route.path}
-              exact={route.exact}
-              render={props => {
-                // On small screens collapse sidenav
-                if (window.layoutHelpers && window.layoutHelpers.isSmallScreen()) {
-                  window.layoutHelpers.setCollapsed(true, false)
-                }
+        <Security {...config.oidc}>
+          <Switch>
+            {this.routes.map(route => (
+              <SecureRoute
+                path={route.path}
+                exact={route.exact}
+                component={props => {
+                  // On small screens collapse sidenav
+                  if (window.layoutHelpers && window.layoutHelpers.isSmallScreen()) {
+                    window.layoutHelpers.setCollapsed(true, false)
+                  }
 
-                // Scroll page to top on route render
-                this.scrollTop(0, 0)
+                  // Scroll page to top on route render
+                  this.scrollTop(0, 0)
 
-                // Return layout
-                return <route.layout {...props}>
-                  <route.component {...props} setTitle={this.setTitle} scrollTop={this.scrollTop} />
-                </route.layout>
-              }}
-              key={route.path}
-            />
-          ))}
-          {defaultRoute !== '/' && <Redirect from="/" to={defaultRoute} exact={true} />}
-
-          {/* NotFound page */}
-          <Route path="*" component={NotFound} />
-        </Switch>
+                  // Return layout
+                  return <route.layout location={{ pathname: route.path }} {...props}>
+                    <route.component {...props} setTitle={this.setTitle} scrollTop={this.scrollTop} />
+                  </route.layout>
+                }}
+                key={route.path}
+              />
+            ))}
+            <Route path="/implicit/callback" component={LoginCallback} />
+            <Route path="/" exact component={Home} />
+            {/* NotFound page */}
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </Security>
       </AppRouter>
     )
   }
