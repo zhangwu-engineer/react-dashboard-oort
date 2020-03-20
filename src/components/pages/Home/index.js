@@ -1,51 +1,71 @@
-import { useOktaAuth } from '@okta/okta-react';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { defaultRoute } from '../../../routes';
+import { useOktaAuth } from '@okta/okta-react'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Spinner } from 'react-bootstrap'
+import { defaultRoute } from '../../../routes'
+import Signin from '../Signin'
+import { titleTemplate } from '../../../routes'
 
 const Home = () => {
-  const { authState, authService } = useOktaAuth();
-  const [userInfo, setUserInfo] = useState(null);
-  const history = useHistory();
+  const { authState, authService } = useOktaAuth()
+  const [userInfo, setUserInfo] = useState(null)
+  const history = useHistory()
 
   useEffect(() => {
     if (!authState.isAuthenticated) {
       // When user isn't authenticated, forget any user info
-      setUserInfo(null);
+      setUserInfo(null)
     } else {
       authService.getUser().then((info) => {
-        setUserInfo(info);
-      });
+        setUserInfo(info)
+      })
     }
-  }, [authState, authService]); // Update if authState changes
+  }, [authState, authService]) // Update if authState changes
 
   const login = async () => {
-    authService.login('/');
-  };
+    authService.login('/')
+  }
 
   if (authState.isPending) {
     return (
-      <div>Loading...</div>
-    );
+      <div className="layout-inner d-flex justify-content-center align-items-center pb-2 mb-2">
+        <div className="ui-w-60">
+          <div className="w-100 position-relative">
+            <Spinner animation="border" size="ls" variant="primary" />
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (authState.isAuthenticated && userInfo) {
-    history.push(defaultRoute);
+    history.push(defaultRoute)
   }
 
   return (
     <div>
       { authState.isAuthenticated && !userInfo
-      && <div>Loading user information...</div>}
+      && (
+        <div className="layout-inner d-flex justify-content-center align-items-center pb-2 mb-2">
+          <div className="ui-w-60">
+            <div className="w-100 position-relative">
+              <Spinner animation="border" size="ls" variant="primary" />
+            </div>
+          </div>
+        </div>
+      )}
 
       {!authState.isAuthenticated
       && (
       <div>
-        <p>If you&lsquo;re viewing this page then you have successfully started this React application.</p>
-        <button id="login-button" primary onClick={login}>Login</button>
+        <Signin
+          onLogin={login}
+          onSetTitle={e => document.title = titleTemplate.replace('%s', e)}
+        />
       </div>
       )}
     </div>
-  );
-};
-export default Home;
+  )
+}
+
+export default Home
