@@ -503,5 +503,12 @@ export const routes = [
     path: '/complete-ui/charts',
     component: lazy(() => import('./cui-components/Charts')),
     layout: LayoutBlank
+  },
+
+  // Real Pages
+  {
+    path: '/signin',
+    component: lazy(() => import('./components/pages/Signin')),
+    layout: LayoutBlank
   }
 ]
