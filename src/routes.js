@@ -510,5 +510,9 @@ export const routes = [
     path: '/signin',
     component: lazy(() => import('./components/pages/Signin')),
     layout: LayoutBlank
+  },
+  {
+    path: '/profile',
+    component: lazy(() => import('./components/pages/Profile')),
   }
 ]
