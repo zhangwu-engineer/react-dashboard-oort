@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { withOktaAuth } from '@okta/okta-react';
 import { Navbar, Nav, FormControl, Dropdown, Badge, ListGroup, Media } from 'react-bootstrap'
 import layoutHelpers from './helpers'
 
@@ -9,6 +10,20 @@ class LayoutNavbar extends Component {
   constructor(props) {
     super(props)
     this.isRTL = document.documentElement.getAttribute('dir') === 'rtl'
+    this.state = {
+      userInfo: null
+    }
+    this.logout = this.logout.bind(this);
+  }
+
+  async componentDidMount() {
+    await this.props.authService.getUser().then((userInfo) => {
+      this.setState({ userInfo });
+    });
+  }
+
+  async logout() {
+    this.props.authService.logout('/');
   }
 
   toggleSidenav(e) {
@@ -17,6 +32,9 @@ class LayoutNavbar extends Component {
   }
 
   render() {
+
+    const { userInfo } = this.state
+
     return (
       <Navbar bg={this.props.navbarBg} expand="lg" className="layout-navbar align-items-lg-center container-p-x">
 
@@ -184,16 +202,16 @@ class LayoutNavbar extends Component {
               <Dropdown.Toggle as={Nav.Link}>
                 <span className="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
                   <img src={`${process.env.PUBLIC_URL}/img/avatars/1.png`} className="d-block ui-w-30 rounded-circle" alt="User" />
-                  <span className="px-1 mr-lg-2 ml-2 ml-lg-0">Mike Greene</span>
+                  <span className="px-1 mr-lg-2 ml-2 ml-lg-0">{userInfo && userInfo.name}</span>
                 </span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item hred="#"><i className="ion ion-ios-person text-lightest"></i> &nbsp; My profile</Dropdown.Item>
+                <Dropdown.Item hred="#" as={NavLink} to="/profile"><i className="ion ion-ios-person text-lightest"></i> &nbsp; My profile</Dropdown.Item>
                 <Dropdown.Item hred="#"><i className="ion ion-ios-mail text-lightest"></i> &nbsp; Messages</Dropdown.Item>
                 <Dropdown.Item hred="#"><i className="ion ion-md-settings text-lightest"></i> &nbsp; Account settings</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item hred="#"><i className="ion ion-ios-log-out text-danger"></i> &nbsp; Log Out</Dropdown.Item>
+                <Dropdown.Item hred="#" onClick={this.logout}><i className="ion ion-ios-log-out text-danger"></i> &nbsp; Log Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Nav>
@@ -213,4 +231,4 @@ LayoutNavbar.defaultProps = {
 
 export default connect(store => ({
   navbarBg: store.theme.navbarBg
-}))(LayoutNavbar)
+}))(withOktaAuth(LayoutNavbar))
