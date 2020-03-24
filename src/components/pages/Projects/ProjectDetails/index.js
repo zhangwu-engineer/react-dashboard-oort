@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, InputGroup, Form, ListGroup, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, ProgressBar, ListGroup } from 'react-bootstrap'
 import Carousel from 'react-images'
 import '../../../../vendor/styles/pages/projects.scss'
 
@@ -57,6 +57,11 @@ class ProjectsItem extends Component {
           name: 'Mae Gibson'
         },
 
+        risk: {
+          score: 66,
+          description: 'Lack of information'
+        },
+
         team: [
           { avatar: '2-small.png', name: 'Leon Wilson', role: 'Owner' },
           { avatar: '3-small.png', name: 'Allie Rodriguez', role: 'Read-Only' },
@@ -76,21 +81,6 @@ class ProjectsItem extends Component {
           date: '2 hours',
           user: { avatar: '1-small.png', name: 'Mike Greene' },
           data: { taskTitle: 'Create invoice template' }
-        }, {
-          type: 'pushed_commit',
-          date: '2 hours',
-          user: { avatar: '2-small.png', name: 'Leon Wilson' },
-          data: { commitId: 950458 }
-        }, {
-          type: 'pushed_commit',
-          date: '2 hours',
-          user: { avatar: '3-small.png', name: 'Allie Rodriguez' },
-          data: { commitId: 950457 }
-        }, {
-          type: 'pushed_commit',
-          date: '2 hours',
-          user: { avatar: '5-small.png', name: 'Nellie Maxwell' },
-          data: { commitId: 950456 }
         }, {
           type: 'completed_task',
           date: '2 hours',
@@ -118,6 +108,10 @@ class ProjectsItem extends Component {
 
   prevent(e) {
     e.preventDefault()
+  }
+
+  completedPercent (tasks, completed) {
+    return Math.round((completed / tasks) * 100)
   }
 
   render() {
@@ -175,6 +169,17 @@ class ProjectsItem extends Component {
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Status</div>
                   <Badge variant={`outline-primary font-weight-normal px-3 py-2`}>{this.state.statuses[this.state.projectData.status].title}</Badge>
+                </ListGroup.Item>
+                <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                  <div className="text-muted">Risk</div>
+                  <div>{this.state.projectData.risk.description}</div>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <ProgressBar now={this.state.projectData.risk.score} style={{ height: '4px' }} />           
+                </ListGroup.Item>
+                <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                  <div className="text-muted">Risk Score</div>
+                  <div>{this.state.projectData.risk.score}%</div>
                 </ListGroup.Item>
               </ListGroup>
             </Card>
