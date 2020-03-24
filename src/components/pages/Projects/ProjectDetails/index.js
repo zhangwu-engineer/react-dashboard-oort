@@ -270,30 +270,6 @@ class ProjectsItem extends Component {
     return Math.round((completed / tasks) * 100)
   }
 
-  isImage (file) {
-    return /\.jpg$|\.png$|\.gif$/i.test(file.name)
-  }
-
-  isFile (file) {
-    return !/\.jpg$|\.png$|\.gif$/i.test(file.name)
-  }
-
-  fileIcon (file) {
-    let icon = 'far fa-file'
-
-    if (/\.zip$|\.tar$|\.tar\.gz$|\.rar$/i.test(file.name)) icon = 'far fa-file-archive'
-    if (/\.mp3$|\.wma$|\.ogg$|\.flac$|\.aac$/i.test(file.name)) icon = 'far fa-file-audio'
-    if (/\.avi$|\.flv$|\.wmv$|\.mov$|\.mp4$/i.test(file.name)) icon = 'far fa-file-video'
-    if (/\.js$|\.es6$|\.ts$/i.test(file.name)) icon = 'fab fa-js'
-    if (/\.doc$|\.docx$/i.test(file.name)) icon = 'far fa-file-word'
-    if (/\.htm$|\.html$/i.test(file.name)) icon = 'fab fa-html5'
-    if (/\.pdf$/i.test(file.name)) icon = 'far fa-file-pdf'
-    if (/\.txt$/i.test(file.name)) icon = 'far fa-file-alt'
-    if (/\.css$/i.test(file.name)) icon = 'fab fa-css3'
-
-    return icon
-  }
-
   priorityDropdownVariant (priority) {
     let variant
 
@@ -322,36 +298,22 @@ class ProjectsItem extends Component {
 
     return (
       <div>
-
-        <h4 className="py-3 mb-4">
-          <Breadcrumb className="font-weight-bold m-0" listProps={{ className: 'm-0' }}>
-            {this.state.projectPath.map((item, i) =>
-              <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text}>{item.text}</Breadcrumb.Item>
-            )}
-          </Breadcrumb>
-        </h4>
-
-        {/* Header */}
-        <div className="container-m-nx border-right-0 border-left-0 ui-bordered mb-4">
-          <Row noGutters className="row-bordered row-border-light">
-            <Col md={9}>
-              <Media.Body className="container-p-x py-4">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <div><strong className="text-primary text-large">{this.completedPercent(this.state.projectData.tasks, this.state.projectData.completedTasks)}%</strong> completed</div>
-                  <div className="text-muted small">{this.state.projectData.tasks - this.state.projectData.completedTasks} opened tasks, {this.state.projectData.completedTasks} tasks completed</div>
-                </div>
-                <ProgressBar now={this.completedPercent(this.state.projectData.tasks, this.state.projectData.completedTasks)} style={{ height: '4px' }} />
-              </Media.Body>
-            </Col>
-            <Col md={3}>
-              <div className="container-p-x py-4">
-                <div className="text-muted small">Status</div>
-                <strong className={`text-big text-${this.state.statuses[this.state.projectData.status].color}`}>{this.state.statuses[this.state.projectData.status].title}</strong>
-              </div>
-            </Col>
-          </Row>
-        </div>
-        {/* / Header */}
+        <Row>
+          <Col>
+            <h4 className="py-3 mb-4">
+              <Breadcrumb className="font-weight-bold m-0" listProps={{ className: 'm-0' }}>
+                {this.state.projectPath.map((item, i) =>
+                  <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text}>{item.text}</Breadcrumb.Item>
+                )}
+              </Breadcrumb>
+            </h4>
+          </Col>
+          <Col md={4} xl={3}>
+            <h5 className="py-3 mb-4 t-align-right">
+              <Badge variant={`outline-primary font-weight-normal px-3 py-2`}>Completed</Badge>
+            </h5>
+          </Col>
+        </Row>
 
         <Row>
           <Col>
