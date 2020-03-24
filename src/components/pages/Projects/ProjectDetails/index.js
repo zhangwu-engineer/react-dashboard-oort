@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import { Breadcrumb, Button, Badge, Card, ProgressBar, Tabs, Tab, Row, Col, Media, InputGroup, Form, ListGroup, DropdownButton, Dropdown } from 'react-bootstrap'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import Carousel from 'react-images'
 import '../../../../vendor/styles/pages/projects.scss'
+
+// react-images
+const images2 = [
+  { src: `${process.env.PUBLIC_URL}/img/bg/1.jpg` },
+  { src: `${process.env.PUBLIC_URL}/img/bg/2.jpg` },
+  { src: `${process.env.PUBLIC_URL}/img/bg/3.jpg` },
+  { src: `${process.env.PUBLIC_URL}/img/bg/4.jpg` },
+]
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -317,6 +326,15 @@ class ProjectsItem extends Component {
 
         <Row>
           <Col>
+
+            {/* Project Image */}
+            <Card className="mb-4">
+              <Card.Header as="h6">Project Image</Card.Header>
+              <Card.Body>
+                <Carousel views={images2} currentIndex={this.state.photoIndex2} />
+              </Card.Body>
+            </Card>
+            {/* / Project Image */}
 
             {/* Description */}
             <Card className="mb-4">
