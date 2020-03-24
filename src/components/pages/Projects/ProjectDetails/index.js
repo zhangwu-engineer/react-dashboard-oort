@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, Button, Badge, Card, ProgressBar, Tabs, Tab, Row, Col, Media, InputGroup, Form, ListGroup, DropdownButton, Dropdown } from 'react-bootstrap'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, InputGroup, Form, ListGroup, DropdownButton, Dropdown } from 'react-bootstrap'
 import Carousel from 'react-images'
 import '../../../../vendor/styles/pages/projects.scss'
 
@@ -12,114 +11,10 @@ const images2 = [
   { src: `${process.env.PUBLIC_URL}/img/bg/4.jpg` },
 ]
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
-  result.splice(endIndex, 0, removed)
-  return result
-}
-const reorderMap = (sections, source, destination) => {
-  const sourceKey = parseInt(source.droppableId.replace('task-section-', ''))
-  const destinationKey = parseInt(destination.droppableId.replace('task-section-', ''))
-  const current = [...sections[sourceKey].tasks]
-  const next = [...sections[destinationKey].tasks]
-  const target = current[source.index]
-
-  const result = [...sections]
-
-  // moving to same list
-  if (source.droppableId === destination.droppableId) {
-    result[sourceKey].tasks = reorder(
-      current,
-      source.index,
-      destination.index,
-    )
-    return result
-  }
-
-  // moving to different list
-
-  // remove from original
-  current.splice(source.index, 1)
-  // insert into next
-  next.splice(destination.index, 0, target)
-
-  result[sourceKey].tasks = current
-  result[destinationKey].tasks = next
-
-  return result
-}
-
-function Tasks({ sections, onChange, availableTags }) {
-  const isRTL = document.documentElement.getAttribute('dir') === 'rtl'
-
-  const onDragEnd = (result) => {
-    if (!result.destination) return
-    onChange(reorderMap(
-      sections,
-      result.source,
-      result.destination,
-    ))
-  }
-
-  const toggleTask = (index, task) => {
-    task.completed = !task.completed
-    // Trigger update
-    onChange([...sections])
-  }
-
-  return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {sections.map((section, sectionIndex) => <React.Fragment key={section.title}>
-        <Card.Body>
-          <p className="text-muted small">{section.title}</p>
-          <Droppable droppableId={`task-section-${sectionIndex}`}>
-            {(droppableProvided, droppableSnapshot) => (
-              <div ref={droppableProvided.innerRef} className="project-task-list custom-controls-stacked" style={{ minHeight: '40px' }}>
-                {section.tasks.map((task, index) => (
-                  <Draggable key={task.text} draggableId={task.text} index={index}>
-                    {(draggableProvided, draggableSnapshot) => (<React.Fragment>
-                      <div className="project-task-item" ref={draggableProvided.innerRef} {...draggableProvided.draggableProps}>
-
-                        <label className="ui-todo-item custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" checked={task.completed} onChange={() => toggleTask(sectionIndex, task)} />
-                          <span className="custom-control-label">{task.text}</span>
-                          {task.tags && task.tags.map(tag =>
-                            <Badge key={tag} variant={`${availableTags[tag].color} font-weight-normal ml-2`}>{availableTags[tag].title}</Badge>
-                          )}
-                          {task.left && <Badge variant="outline-default" className="ui-todo-badge font-weight-normal ml-2">{task.left} left</Badge>}
-                        </label>
-
-                        <div className="d-flex align-items-center float-right">
-                          <div className="project-task-handle ion ion-ios-move text-lightest small mr-3" {...draggableProvided.dragHandleProps} />
-
-                          <DropdownButton variant="default btn-xs rounded-pill icon-btn borderless md-btn-flat hide-arrow" className="task-list-actions" title={<i className="ion ion-ios-more"></i>} alignRight={!isRTL}>
-                            <Dropdown.Item>Edit</Dropdown.Item>
-                            <Dropdown.Item>Remove</Dropdown.Item>
-                          </DropdownButton>
-                        </div>
-
-                      </div>
-                    </React.Fragment>)}
-                  </Draggable>
-                ))}
-                {droppableProvided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </Card.Body>
-        {sectionIndex !== (sections.length - 1) && <hr className="m-0" />}
-      </React.Fragment>)}
-    </DragDropContext>
-  )
-}
-
 class ProjectsItem extends Component {
   constructor(props) {
     super(props)
     props.setTitle('Project item - Pages')
-
-    this.onTasksChange = this.onTasksChange.bind(this)
 
     this.state = {
       projectPath: [
@@ -172,37 +67,12 @@ class ProjectsItem extends Component {
           name: 'Company Ltd.'
         },
 
-        leaders: [
-          { avatar: '1-small.png', name: 'Mike Greene' }
-        ],
-
         team: [
           { avatar: '2-small.png', name: 'Leon Wilson' },
           { avatar: '3-small.png', name: 'Allie Rodriguez' },
           { avatar: '4-small.png', name: 'Kenneth Frazier' },
           { avatar: '5-small.png', name: 'Nellie Maxwell' }
         ],
-
-        taskSections: [{
-          title: 'Frontend',
-          tasks: [
-            { text: 'Update User profile page', tags: ['other'], completed: false },
-            { text: 'Add images to the product gallery', completed: false },
-            { text: 'Create invoice template', completed: false }
-          ]
-        }, {
-          title: 'Backend',
-          tasks: [
-            { text: 'New blog layout', tags: ['clients'], completed: false },
-            { text: 'Create UI design model', completed: false },
-            { text: 'Help Web devs with HTML integration', completed: false },
-            { text: 'New icons set for an iOS app', completed: false },
-            { text: 'Create ad campaign banners set', completed: false },
-            { text: 'Edit the draft for the icons', completed: false },
-            { text: 'Fix validation issues and commit', tags: ['important'], completed: false },
-            { text: 'Support tickets list doesn\'t support commas', completed: false }
-          ]
-        }],
 
         discussion: [{
           text: 'Pellentesque faucibus, nisl vel luctus porttitor, leo felis pellentesque augue, dignissim tempus risus odio sed lorem. Nunc nec malesuada nunc, ut mollis dui.',
@@ -275,10 +145,6 @@ class ProjectsItem extends Component {
     }
   }
 
-  completedPercent (tasks, completed) {
-    return Math.round((completed / tasks) * 100)
-  }
-
   priorityDropdownVariant (priority) {
     let variant
 
@@ -287,15 +153,6 @@ class ProjectsItem extends Component {
     if (priority === 3) variant = 'warning'
 
     return `${variant} btn-xs md-btn-flat`
-  }
-
-  onTasksChange(taskSections) {
-    this.setState({
-      projectData: {
-        ...this.state.projectData,
-        taskSections
-      }
-    })
   }
 
   prevent(e) {
@@ -345,44 +202,23 @@ class ProjectsItem extends Component {
 
             {/* Tabs */}
             <div className="nav-tabs-top mb-4">
-
-              <Tabs defaultActiveKey="tasks">
-                <Tab eventKey="tasks" title="Tasks">
-
-                  <Tasks sections={this.state.projectData.taskSections} availableTags={this.state.taskTags} onChange={this.onTasksChange} />
+              <Tabs defaultActiveKey="users">
+                <Tab eventKey="users" title="Users">
+                  <Card.Body>
+                      {this.state.projectData.team.map(member =>
+                          <Media className="align-items-center pb-3">
+                            <img src={`${process.env.PUBLIC_URL}/img/avatars/${member.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
+                            <Media.Body className="px-3">
+                              <a href="#d" onClick={this.prevent} className="text-body">{member.name}</a>
+                            </Media.Body>
+                            <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
+                          </Media>
+                      )}
+                  </Card.Body>
                   <Card.Footer className="py-3">
-                    <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add task</Button>&nbsp;
+                    <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add user</Button>&nbsp;
                     <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
                   </Card.Footer>
-
-                </Tab>
-                <Tab eventKey="discussion" title="Discussion">
-
-                  <Card.Body>
-
-                    {this.state.projectData.discussion.map(message => 
-                      <Media key={`${message.date}${message.user.name}`} className="mb-3">
-                        <div>
-                          <img src={`${process.env.PUBLIC_URL}/img/avatars/${message.user.avatar}`} className="ui-w-40 rounded-circle" alt="Author" />
-                          <div className="text-muted small text-nowrap mt-2">{message.date}</div>
-                        </div>
-                        <Media.Body className="bg-lighter rounded py-2 px-3 ml-3">
-                          <div className="font-weight-semibold mb-1">{message.user.name}</div>
-                          {message.text}
-                        </Media.Body>
-                      </Media>
-                    )}
-
-                  </Card.Body>
-                  <Card.Footer>
-                    <InputGroup>
-                      <Form.Control placeholder="Type your message" />
-                      <InputGroup.Append>
-                        <Button variant="primary">Send</Button>
-                      </InputGroup.Append>
-                    </InputGroup>
-                  </Card.Footer>
-
                 </Tab>
                 <Tab eventKey="activity" title="Activity">
                   <Card.Body>
@@ -481,54 +317,6 @@ class ProjectsItem extends Component {
               </ListGroup>
             </Card>
             {/* / Project details */}
-
-            {/* Leaders */}
-            <Card className="mb-4">
-              <Card.Header as="h6" className="with-elements">
-                <span className="card-header-title">Leaders</span>
-                <div className="card-header-elements ml-auto">
-                  <Button variant="outline-primary btn-xs"><i className="ion ion-md-add"></i> Add</Button>
-                </div>
-              </Card.Header>
-              <ListGroup variant="flush">
-                {this.state.projectData.leaders.map(leader =>
-                  <ListGroup.Item key={leader.name}>
-                    <Media className="align-items-center">
-                      <img src={`${process.env.PUBLIC_URL}/img/avatars/${leader.avatar}`} className="d-block ui-w-30 rounded-circle" alt="User" />
-                      <Media.Body className="px-2">
-                        <a href="#d" onClick={this.prevent} className="text-body">{leader.name}</a>
-                      </Media.Body>
-                      <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
-                    </Media>
-                  </ListGroup.Item>
-                )}
-              </ListGroup>
-            </Card>
-            {/* / Leaders */}
-
-            {/* Participants */}
-            <Card className="mb-4">
-              <Card.Header as="h6" className="with-elements">
-                <span className="card-header-title">Participants</span>
-                <div className="card-header-elements ml-auto">
-                  <Button variant="outline-primary btn-xs"><i className="ion ion-md-add"></i> Add</Button>
-                </div>
-              </Card.Header>
-              <ListGroup variant="flush">
-                {this.state.projectData.team.map(member =>
-                  <ListGroup.Item key={member.name}>
-                    <Media className="align-items-center">
-                      <img src={`${process.env.PUBLIC_URL}/img/avatars/${member.avatar}`} className="d-block ui-w-30 rounded-circle" alt="Member" />
-                      <Media.Body className="px-2">
-                        <a href="#d" onClick={this.prevent} className="text-body">{member.name}</a>
-                      </Media.Body>
-                      <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
-                    </Media>
-                  </ListGroup.Item>
-                )}
-              </ListGroup>
-            </Card>
-            {/* / Participants */}
 
           </Col>
         </Row>
