@@ -74,6 +74,13 @@ class ProjectsItem extends Component {
           { avatar: '5-small.png', name: 'Nellie Maxwell', role: 'Read-Only' }
         ],
 
+        resources: [
+          { avatar: 'uikit/adidas.jpg', name: 'Application 1' },
+          { avatar: 'uikit/headphones.jpg', name: 'Application 2' },
+          { avatar: 'uikit/iwatch.jpg', name: 'Application 3' },
+          { avatar: 'uikit/ps4.jpg', name: 'Application 4' }
+        ],
+
         activities: [{
           type: 'new_task',
           date: '2 hours',
@@ -194,6 +201,23 @@ class ProjectsItem extends Component {
                   </Card.Body>
                   <Card.Footer className="py-3">
                     <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add user</Button>&nbsp;
+                    <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
+                  </Card.Footer>
+                </Tab>
+                <Tab eventKey="resources" title="Resources">
+                  <Card.Body>
+                      {this.state.projectData.resources.map(resource =>
+                          <Media className="align-items-center pb-3">
+                            <img src={`${process.env.PUBLIC_URL}/img/${resource.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
+                            <Media.Body className="px-3 layout-wrapper">
+                              <a href="#d" onClick={this.prevent} className="text-body layout-content">{resource.name}</a>
+                            </Media.Body>
+                            <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
+                          </Media>
+                      )}
+                  </Card.Body>
+                  <Card.Footer className="py-3">
+                    <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add Application</Button>&nbsp;
                     <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
                   </Card.Footer>
                 </Tab>
