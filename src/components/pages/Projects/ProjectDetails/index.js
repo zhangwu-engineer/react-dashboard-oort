@@ -68,37 +68,11 @@ class ProjectsItem extends Component {
         },
 
         team: [
-          { avatar: '2-small.png', name: 'Leon Wilson' },
-          { avatar: '3-small.png', name: 'Allie Rodriguez' },
-          { avatar: '4-small.png', name: 'Kenneth Frazier' },
-          { avatar: '5-small.png', name: 'Nellie Maxwell' }
+          { avatar: '2-small.png', name: 'Leon Wilson', role: 'Owner' },
+          { avatar: '3-small.png', name: 'Allie Rodriguez', role: 'Read-Only' },
+          { avatar: '4-small.png', name: 'Kenneth Frazier', role: 'Read-Only' },
+          { avatar: '5-small.png', name: 'Nellie Maxwell', role: 'Read-Only' }
         ],
-
-        discussion: [{
-          text: 'Pellentesque faucibus, nisl vel luctus porttitor, leo felis pellentesque augue, dignissim tempus risus odio sed lorem. Nunc nec malesuada nunc, ut mollis dui.',
-          date: '2:33 am',
-          user: { avatar: '1-small.png', name: 'Mike Greene' }
-        }, {
-          text: 'Quisque sodales, tortor et elementum dapibus, nisl urna hendrerit metus, a rhoncus magna sem in libero.',
-          date: '2:34 am',
-          user: { avatar: '5-small.png', name: 'Nelle Maxwell' }
-        }, {
-          text: 'Cum ea graeci tractatos.',
-          date: '2:38 am',
-          user: { avatar: '1-small.png', name: 'Mike Greene' }
-        }, {
-          text: 'Cras ultrices, dui id vulputate laoreet, diam orci semper ipsum, a aliquet nunc quam vitae turpis. Donec cursus tortor nec turpis semper, ac luctus mauris sagittis.',
-          date: '2:38 am',
-          user: { avatar: '2-small.png', name: 'Leon Wilson' }
-        }, {
-          text: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-          date: '2:38 am',
-          user: { avatar: '3-small.png', name: 'Allie Rodriguez' }
-        }, {
-          text: 'Aliquam ornare nisl semper nisl porttitor commodo vel vel libero.',
-          date: '2:38 am',
-          user: { avatar: '5-small.png', name: 'Kenneth Frazier' }
-        }],
 
         activities: [{
           type: 'new_task',
@@ -208,8 +182,11 @@ class ProjectsItem extends Component {
                       {this.state.projectData.team.map(member =>
                           <Media className="align-items-center pb-3">
                             <img src={`${process.env.PUBLIC_URL}/img/avatars/${member.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
-                            <Media.Body className="px-3">
-                              <a href="#d" onClick={this.prevent} className="text-body">{member.name}</a>
+                            <Media.Body className="px-3 layout-wrapper">
+                              <a href="#d" onClick={this.prevent} className="text-body layout-content">{member.name}</a>
+                              <div className="layout-content">
+                                <Badge key={member} variant="outline-info" className="ui-w-fit mt-1">{member.role}</Badge>
+                              </div>
                             </Media.Body>
                             <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
                           </Media>
