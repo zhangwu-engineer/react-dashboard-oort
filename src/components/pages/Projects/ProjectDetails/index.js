@@ -138,9 +138,7 @@ class ProjectsItem extends Component {
             <Card className="mb-4">
               <Card.Header as="h6">Project details</Card.Header>
               <ListGroup variant="flush">
-                <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                  <img className="mb-2" src={this.state.projectData.imageUrl} alt="Project Logo" style={{width: '100%', paddingTop: 13, paddingBottom: 5}} />
-                </ListGroup.Item>
+                <img src={this.state.projectData.imageUrl} alt="Project Logo" style={{width: '100%'}} />
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div>{this.state.projectData.description}</div>
                 </ListGroup.Item>
