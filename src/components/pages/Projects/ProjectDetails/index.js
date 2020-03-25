@@ -169,17 +169,19 @@ class ProjectsItem extends Component {
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Status</div>
                   <Badge variant={`outline-primary font-weight-normal px-3 py-2`}>{this.state.statuses[this.state.projectData.status].title}</Badge>
-                </ListGroup.Item>
-                <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                  <div className="text-muted">Risk</div>
-                  <div>{this.state.projectData.risk.description}</div>
-                </ListGroup.Item>
+                </ListGroup.Item> 
                 <ListGroup.Item>
-                  <ProgressBar now={this.state.projectData.risk.score} style={{ height: '4px' }} />           
-                </ListGroup.Item>
-                <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                  <div className="text-muted">Risk Score</div>
-                  <div>{this.state.projectData.risk.score}%</div>
+                  <div className="mt-2 mb-3">
+                    <ProgressBar now={this.state.projectData.risk.score} style={{ height: '4px' }} />           
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <div className="text-muted">Risk Score</div>
+                    <div>{this.state.projectData.risk.score}%</div>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <div className="text-muted">Description</div>
+                    <div>{this.state.projectData.risk.description}</div>
+                  </div>
                 </ListGroup.Item>
               </ListGroup>
             </Card>
