@@ -514,5 +514,9 @@ export const routes = [
   {
     path: '/profile',
     component: lazy(() => import('./components/pages/Profile')),
+  },
+  {
+    path: '/projects',
+    component: lazy(() => import('./components/pages/ProjectsList')),
   }
 ]
