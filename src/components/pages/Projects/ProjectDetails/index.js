@@ -36,22 +36,17 @@ class ProjectsItem extends Component {
       },
 
       projectData: {
-        title: 'Frontend Development',
+        title: 'Website development',
         status: 1,
         priority: 1,
         tasks: 44,
         completedTasks: 29,
-
-        description: `
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus. Ut neque felis, luctus ut rhoncus id, elementum vitae lorem. Ut ac turpis sit amet lorem volutpat tincidunt. Vestibulum dui sapien, porttitor eget pellentesque id, ultrices id ipsum. Nam augue mi, maximus ut tortor et, fermentum efficitur diam. Suspendisse eget urna lorem. Fusce ligula augue, malesuada ullamcorper est nec, commodo laoreet tellus.</p>
-          <p>Proin imperdiet purus et lectus luctus, rutrum fermentum lorem molestie. Nam urna felis, elementum elementum placerat id, fermentum ac urna. Etiam libero sem, porttitor ultrices efficitur condimentum, lobortis sit amet enim. Sed vitae orci nulla.</p>
-          <p>Cras ultrices, dui id vulputate laoreet, diam orci semper ipsum, a aliquet nunc quam vitae turpis. Donec cursus tortor nec turpis semper, ac luctus mauris sagittis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-        `,
-
+        imageUrl: `${process.env.PUBLIC_URL}/img/project.png`,
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus.`,
         createdAt: '02/01/2018',
         lastUpdate: '02/18/2018',
-        startDate: '03/12/2018',
-        endDate: '04/12/2018',
+        startDate: '03/12/2018 08:00 am',
+        endDate: '04/12/2018 09:00 pm',
 
         createdBy: {
           name: 'Mae Gibson'
@@ -144,7 +139,14 @@ class ProjectsItem extends Component {
               <Card.Header as="h6">Project details</Card.Header>
               <ListGroup variant="flush">
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                  <Carousel views={images2} currentIndex={this.state.photoIndex2} />
+                  <img className="mb-2" src={this.state.projectData.imageUrl} alt="Project Logo" style={{width: '100%', paddingTop: 13, paddingBottom: 5}} />
+                </ListGroup.Item>
+                <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                  <div>{this.state.projectData.description}</div>
+                </ListGroup.Item>
+                <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                  <div className="text-muted">Name</div>
+                  <div><a href="#d" onClick={this.prevent}>{this.state.projectData.title}</a></div>
                 </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Owner</div>
@@ -179,7 +181,7 @@ class ProjectsItem extends Component {
                     <div>{this.state.projectData.risk.score}%</div>
                   </div>
                   <div className="d-flex justify-content-between align-items-center mb-2">
-                    <div className="text-muted">Description</div>
+                    <div className="text-muted"></div>
                     <div>{this.state.projectData.risk.description}</div>
                   </div>
                 </ListGroup.Item>
@@ -189,13 +191,6 @@ class ProjectsItem extends Component {
 
           </Col>
           <Col>
-
-            {/* Description */}
-            <Card className="mb-4">
-              <Card.Header as="h6">Description</Card.Header>
-              <Card.Body dangerouslySetInnerHTML={{ __html: this.state.projectData.description }}></Card.Body>
-            </Card>
-            {/* / Description */}
 
             {/* Tabs */}
             <div className="nav-tabs-top mb-4">
