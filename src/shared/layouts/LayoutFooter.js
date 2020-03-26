@@ -11,7 +11,7 @@ class LayoutFooter extends Component {
       <nav className={`layout-footer footer bg-${this.props.footerBg}`}>
         <div className="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
           <div className="pt-3">
-            <span className="footer-text font-weight-bolder">Appwork</span> ©
+            <span className="footer-text font-weight-bolder">Oort</span> ©
           </div>
           <div>
             <a href="#d" onClick={this.prevent} className="footer-link pt-3">About Us</a>
