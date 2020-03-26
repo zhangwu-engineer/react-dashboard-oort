@@ -15,11 +15,13 @@ class ProjectsList extends Component {
       projectsData: [{
         status: 1,
         title: 'Frontend Development',
-        tasks: 15,
-        completedTasks: 5,
+        imageUrl: 'project.png',
+        users: 5,
+        resources: 5,
+        riskScore: 56,
         shortDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.',
         created: '02/01/2018',
-        deadline: '03/12/2018',
+        lastActivity: '03/12/2018',
         team: [
           { avatar: '2-small.png' },
           { avatar: '3-small.png' },
@@ -30,11 +32,13 @@ class ProjectsList extends Component {
       }, {
         status: 1,
         title: 'Website',
-        tasks: 44,
-        completedTasks: 29,
+        imageUrl: 'project.png',
+        users: 3,
+        resources: 29,
+        riskScore: 32,
         shortDescription: 'Aliquam sem elit, semper sed ante ut, aliquam molestie risus.',
         created: '02/01/2018',
-        deadline: '03/12/2018',
+        lastActivity: '03/12/2018',
         team: [
           { avatar: '7-small.png' },
           { avatar: '8-small.png' },
@@ -43,11 +47,13 @@ class ProjectsList extends Component {
       }, {
         status: 1,
         title: 'UI update',
-        tasks: 54,
-        completedTasks: 48,
+        imageUrl: 'project.png',
+        users: 3,
+        resources: 48,
+        riskScore: 77,
         shortDescription: 'Etiam venenatis varius lectus sed fermentum. Nullam hendrerit, massa sed tincidunt sagittis, leo nibh semper sapien, vitae interdum nisl erat ut sapien.',
         created: '02/01/2018',
-        deadline: '03/12/2018',
+        lastActivity: '03/12/2018',
         team: [
           { avatar: '10-small.png' },
           { avatar: '11-small.png' },
@@ -56,11 +62,13 @@ class ProjectsList extends Component {
       }, {
         status: 2,
         title: 'SEO',
-        tasks: 70,
-        completedTasks: 45,
+        imageUrl: 'project.png',
+        users: 3,
+        resources: 45,
+        riskScore: 77,
         shortDescription: 'Suspendisse scelerisque nisi ac semper ornare.',
         created: '02/01/2018',
-        deadline: '03/12/2018',
+        lastActivity: '03/12/2018',
         team: [
           { avatar: '2-small.png' },
           { avatar: '3-small.png' },
@@ -69,11 +77,13 @@ class ProjectsList extends Component {
       }, {
         status: 1,
         title: 'example.com design',
-        tasks: 84,
-        completedTasks: 28,
+        imageUrl: 'project.png',
+        users: 4,
+        resources: 28,
+        riskScore: 88,
         shortDescription: 'Pellentesque imperdiet nunc quis fringilla euismod. Nunc iaculis eu augue sit amet faucibus.',
         created: '02/01/2018',
-        deadline: '03/12/2018',
+        lastActivity: '03/12/2018',
         team: [
           { avatar: '5-small.png' },
           { avatar: '6-small.png' },
@@ -82,10 +92,6 @@ class ProjectsList extends Component {
         ]
       }]
     }
-  }
-
-  completedPercent(tasks, completed) {
-    return Math.round((completed / tasks) * 100)
   }
 
   prevent(e) {
@@ -109,21 +115,26 @@ class ProjectsList extends Component {
               <Card className="mb-4">
 
                 <Card.Body className="d-flex justify-content-between align-items-start pb-3">
-                  <div>
-                    <a href="#d" onClick={this.prevent} className="text-body text-big font-weight-semibold">{project.title}</a>
-                    <Badge variant={this.state.statuses[project.status].color} className="align-text-bottom ml-1">{this.state.statuses[project.status].title}</Badge>
-                    <div className="text-muted small mt-1">{project.tasks - project.completedTasks} opened tasks, {project.completedTasks} tasks completed</div>
+                  <div className="d-flex align-items-center pb-3">
+                    <div>
+                      <img src={`${process.env.PUBLIC_URL}/img/${project.imageUrl}`} alt="Project Logo" className="ui-h-40 ui-bordered mr-3" />
+                    </div>
+                    <div>
+                      <a href="#d" onClick={this.prevent} className="text-body text-big font-weight-semibold">{project.title}</a>
+                      <Badge variant={this.state.statuses[project.status].color} className="align-text-bottom ml-1">{this.state.statuses[project.status].title}</Badge>
+                      <div className="text-muted small mt-1">{project.users} users, {project.resources} resources</div>
+                    </div>
                   </div>
                   <DropdownButton variant="default icon-btn borderless rounded-pill md-btn-flat hide-arrow" size="sm" title={<i className="ion ion-ios-more"></i>} alignRight={!isRTL}>
                     <Dropdown.Item>View</Dropdown.Item>
                     <Dropdown.Item>Edit</Dropdown.Item>
-                    <Dropdown.Item>Remove</Dropdown.Item>
+                    <Dropdown.Item>Suspend</Dropdown.Item>
                   </DropdownButton>
                 </Card.Body>
 
-                <ProgressBar now={this.completedPercent(project.tasks, project.completedTasks)} className="rounded-0" style={{ height: '3px' }} />
+                <ProgressBar now={project.riskScore} className="rounded-0" style={{ height: '3px' }} />
                 <div className="card-body small pt-2 pb-0">
-                  <strong>{this.completedPercent(project.tasks, project.completedTasks)}%</strong> completed
+                  <strong>{project.riskScore}%</strong> risk
                 </div>
 
                 <Card.Body className="pb-3">
@@ -137,8 +148,8 @@ class ProjectsList extends Component {
                       <div className="font-weight-bold">{project.created}</div>
                     </Col>
                     <Col>
-                      <div className="text-muted small">Deadline</div>
-                      <div className="font-weight-bold">{project.deadline}</div>
+                      <div className="text-muted small">Last Activity</div>
+                      <div className="font-weight-bold">{project.lastActivity}</div>
                     </Col>
                   </Row>
                 </Card.Body>
