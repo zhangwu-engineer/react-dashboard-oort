@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { Button, Card, ProgressBar, Form, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 
 class ProjectsList extends Component {
@@ -13,6 +14,7 @@ class ProjectsList extends Component {
       },
 
       sortBy: '',
+      sortOrder: 'ASC',
 
       projectsData: [{
         status: 1,
@@ -22,8 +24,8 @@ class ProjectsList extends Component {
         resources: 5,
         riskScore: 56,
         shortDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.',
-        created: '02/01/2018',
-        lastActivity: '03/12/2018',
+        created: new Date('2018-01-04'),
+        lastActivity: new Date('2018-04-04'),
         team: [
           { avatar: '2-small.png' },
           { avatar: '3-small.png' },
@@ -39,8 +41,8 @@ class ProjectsList extends Component {
         resources: 29,
         riskScore: 32,
         shortDescription: 'Aliquam sem elit, semper sed ante ut, aliquam molestie risus.',
-        created: '02/01/2018',
-        lastActivity: '03/12/2018',
+        created: new Date('2018-02-24'),
+        lastActivity: new Date('2018-02-28'),
         team: [
           { avatar: '7-small.png' },
           { avatar: '8-small.png' },
@@ -54,8 +56,8 @@ class ProjectsList extends Component {
         resources: 48,
         riskScore: 77,
         shortDescription: 'Etiam venenatis varius lectus sed fermentum. Nullam hendrerit, massa sed tincidunt sagittis, leo nibh semper sapien, vitae interdum nisl erat ut sapien.',
-        created: '02/01/2018',
-        lastActivity: '03/12/2018',
+        created: new Date('2018-03-04'),
+        lastActivity: new Date('2018-03-14'),
         team: [
           { avatar: '10-small.png' },
           { avatar: '11-small.png' },
@@ -69,8 +71,8 @@ class ProjectsList extends Component {
         resources: 45,
         riskScore: 77,
         shortDescription: 'Suspendisse scelerisque nisi ac semper ornare.',
-        created: '02/01/2018',
-        lastActivity: '03/12/2018',
+        created: new Date('2018-02-04'),
+        lastActivity: new Date('2018-02-05'),
         team: [
           { avatar: '2-small.png' },
           { avatar: '3-small.png' },
@@ -84,8 +86,8 @@ class ProjectsList extends Component {
         resources: 28,
         riskScore: 88,
         shortDescription: 'Pellentesque imperdiet nunc quis fringilla euismod. Nunc iaculis eu augue sit amet faucibus.',
-        created: '02/01/2018',
-        lastActivity: '03/12/2018',
+        created: new Date('2018-01-14'),
+        lastActivity: new Date('2018-04-14'),
         team: [
           { avatar: '5-small.png' },
           { avatar: '6-small.png' },
@@ -137,11 +139,11 @@ class ProjectsList extends Component {
             <Row>
               <Col>
                 <div className="text-muted small">Created</div>
-                <div className="font-weight-bold">{project.created}</div>
+                <div className="font-weight-bold">{moment(project.created).format('YYYY-MM-DD')}</div>
               </Col>
               <Col>
                 <div className="text-muted small">Last Activity</div>
-                <div className="font-weight-bold">{project.lastActivity}</div>
+                <div className="font-weight-bold">{moment(project.lastActivity).format('YYYY-MM-DD')}</div>
               </Col>
             </Row>
           </Card.Body>
@@ -163,16 +165,25 @@ class ProjectsList extends Component {
     )
   }
 
+  sortDynamic(a, b, sortBy, sortOrder) {
+    const sortOrientation = sortOrder === 'ASC' ? 1 : -1
+
+    if (sortBy === '') return 0
+    if (a[sortBy] instanceof Date) {
+      const secondsA = moment(a[sortBy]).valueOf()
+      const secondsB = moment(b[sortBy]).valueOf()
+      return (secondsA > secondsB) ? 1*sortOrientation : ((secondsB > secondsA) ? -1*sortOrientation : 0)
+    } else if (isNaN(a[sortBy])) {
+      return (a[sortBy].toString().localeCompare(b[sortBy]))*sortOrientation
+    }
+    return (a[sortBy] > b[sortBy]) ? 1*sortOrientation : ((b[sortBy] > a[sortBy]) ? -1*sortOrientation : 0)
+  }
+
   render() {
     let projectsData = [...this.state.projectsData]
 
     projectsData =  projectsData
-      .sort((a, b) => {
-        const { sortBy } = this.state
-        if (sortBy === '') return false
-        if (isNaN(a[sortBy])) return a[sortBy].localeCompare(b[sortBy])
-        return (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0)
-      })
+      .sort((a, b) => this.sortDynamic(a, b, this.state.sortBy, this.state.sortOrder))
       .map((project) => 
         this.renderSingleProjectCard(project)
       );
@@ -183,6 +194,13 @@ class ProjectsList extends Component {
         <h4 className="d-flex justify-content-between align-items-center font-weight-bold py-3 mb-4">
           <div>Projects</div>
           <div className="d-flex justify-content-end align-items-center w-100">
+            <Col md={3} className="mb-4">
+              <Form.Label>Sort order</Form.Label>
+              <Form.Control as="select" className="custom-select" value={this.state.sortOrder} onChange={e => this.setState({ sortOrder: e.target.value })}>
+                <option value="ASC">ASC</option>
+                <option value="DESC">DESC</option>
+              </Form.Control>
+            </Col>
             <Col md={3} className="mb-4">
               <Form.Label>Sort by</Form.Label>
               <Form.Control as="select" className="custom-select" value={this.state.sortBy} onChange={e => this.setState({ sortBy: e.target.value })}>
