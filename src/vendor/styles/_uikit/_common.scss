@@ -30,6 +30,10 @@ $ui-star-filled-color: #FFE924 !default;
 // *******************************************************************************
 // * Utilities
 
+.ui-w-fit {
+  max-width: fit-content;
+}
+
 .ui-w-full {
   width: 100% !important;
   height: auto;
