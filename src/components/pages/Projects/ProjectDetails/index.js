@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, ProgressBar, ListGroup } from 'react-bootstrap'
-import Carousel from 'react-images'
+import DatePicker from 'react-datepicker'
 import '../../../../vendor/styles/pages/projects.scss'
+import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
 
-// react-images
-const images2 = [
-  { src: `${process.env.PUBLIC_URL}/img/bg/1.jpg` },
-  { src: `${process.env.PUBLIC_URL}/img/bg/2.jpg` },
-  { src: `${process.env.PUBLIC_URL}/img/bg/3.jpg` },
-  { src: `${process.env.PUBLIC_URL}/img/bg/4.jpg` },
-]
+// react-datepicker custom input
+
+class DateInput extends Component {
+  render() {
+    return (
+      <div onClick={this.props.onClick}>
+        {this.props.value}
+      </div>
+    )
+  }
+}
 
 class ProjectsItem extends Component {
   constructor(props) {
@@ -43,8 +48,8 @@ class ProjectsItem extends Component {
         completedTasks: 29,
         imageUrl: `${process.env.PUBLIC_URL}/img/project.png`,
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus.`,
-        createdAt: '02/01/2018',
-        lastUpdate: '02/18/2018',
+        createdAt: new Date('02/01/2018'),
+        lastUpdate: new Date('02/18/2018'),
         startDate: '03/12/2018 08:00 am',
         endDate: '04/12/2018 09:00 pm',
 
@@ -99,18 +104,22 @@ class ProjectsItem extends Component {
         }]
       }
     }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   prevent(e) {
     e.preventDefault()
   }
 
-  completedPercent (tasks, completed) {
-    return Math.round((completed / tasks) * 100)
+  handleChange(field, value) {
+    this.setState({ projectData: {
+      ...this.state.projectData,
+      [field]: value
+    }})
   }
 
   render() {
-    const isRTL = document.documentElement.getAttribute('dir') === 'rtl'
 
     return (
       <div>
@@ -152,11 +161,25 @@ class ProjectsItem extends Component {
                 </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Created at</div>
-                  <div>{this.state.projectData.createdAt}</div>
+                  <div>
+                    <DatePicker
+                      customInput={<DateInput />}
+                      selected={this.state.projectData.createdAt}
+                      onChange={date => this.handleChange('createdAt', date)}
+                      popperPlacement={this.placement}
+                    />
+                  </div>
                 </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Modified at</div>
-                  <div>{this.state.projectData.lastUpdate}</div>
+                  <div>
+                    <DatePicker
+                      customInput={<DateInput />}
+                      selected={this.state.projectData.lastUpdate}
+                      onChange={date => this.handleChange('lastUpdate', date)}
+                      popperPlacement={this.placement}
+                    />
+                  </div>
                 </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Start Date</div>
@@ -195,8 +218,8 @@ class ProjectsItem extends Component {
               <Tabs defaultActiveKey="users">
                 <Tab eventKey="users" title="Users">
                   <Card.Body>
-                      {this.state.projectData.team.map(member =>
-                          <Media className="align-items-center pb-3">
+                      {this.state.projectData.team.map((member, index) =>
+                          <Media className="align-items-center pb-3" key={index}>
                             <img src={`${process.env.PUBLIC_URL}/img/avatars/${member.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
                             <Media.Body className="px-3 layout-wrapper">
                               <a href="#d" onClick={this.prevent} className="text-body layout-content">{member.name}</a>
@@ -215,8 +238,8 @@ class ProjectsItem extends Component {
                 </Tab>
                 <Tab eventKey="resources" title="Resources">
                   <Card.Body>
-                      {this.state.projectData.resources.map(resource =>
-                          <Media className="align-items-center pb-3">
+                      {this.state.projectData.resources.map((resource, index) =>
+                          <Media className="align-items-center pb-3" key={index}>
                             <img src={`${process.env.PUBLIC_URL}/img/${resource.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
                             <Media.Body className="px-3 layout-wrapper">
                               <a href="#d" onClick={this.prevent} className="text-body layout-content">{resource.name}</a>
