@@ -70,7 +70,12 @@ class ProjectsTable extends Component {
       text: 'Risk Score',
       dataField: 'riskScore',
       sort: true,
-      classes: 'py-2 align-middle'
+      classes: 'py-2 align-middle',
+      formatter: (cell, row) => {
+        return (<React.Fragment>
+          {row.riskScore}%
+        </React.Fragment>)
+      }
     }, {
       text: 'Created',
       dataField: 'created',
