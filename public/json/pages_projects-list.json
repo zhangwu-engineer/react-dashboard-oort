@@ -1,9 +1,59 @@
 [
   {
-    "title": "PlayStation 4 1TB (Jet Black)",
+    "title": "Front-end Development",
     "imageUrl": "project.png",
     "status": 1,
     "users": 5,
+    "resources": 12,
+    "riskScore": 40,
+    "created": "2018-04-04",
+    "lastActivity": "2018-07-04"
+  },
+  {
+    "title": "Oort Admin Project",
+    "imageUrl": "project.png",
+    "status": 3,
+    "users": 8,
+    "resources": 6,
+    "riskScore": 60,
+    "created": "2018-01-04",
+    "lastActivity": "2018-03-04"
+  },
+  {
+    "title": "API Development",
+    "imageUrl": "project.png",
+    "status": 2,
+    "users": 5,
+    "resources": 52,
+    "riskScore": 70,
+    "created": "2018-10-04",
+    "lastActivity": "2018-12-04"
+  },
+  {
+    "title": "PlayStation 4",
+    "imageUrl": "project.png",
+    "status": 1,
+    "users": 51,
+    "resources": 12,
+    "riskScore": 40,
+    "created": "2018-05-04",
+    "lastActivity": "2018-09-04"
+  },
+  {
+    "title": "PlayStation 4 1TB (Jet Black)",
+    "imageUrl": "project.png",
+    "status": 1,
+    "users": 25,
+    "resources": 12,
+    "riskScore": 40,
+    "created": "2018-01-04",
+    "lastActivity": "2018-03-04"
+  },
+  {
+    "title": "Devops Project",
+    "imageUrl": "project.png",
+    "status": 2,
+    "users": 35,
     "resources": 12,
     "riskScore": 40,
     "created": "2018-01-04",
@@ -13,10 +63,60 @@
     "title": "PlayStation 4 2TB",
     "imageUrl": "project.png",
     "status": 2,
-    "users": 2,
+    "users": 25,
+    "resources": 32,
+    "riskScore": 70,
+    "created": "2018-08-04",
+    "lastActivity": "2018-09-04"
+  },
+  {
+    "title": "Oort Front-end Development",
+    "imageUrl": "project.png",
+    "status": 3,
+    "users": 5,
+    "resources": 12,
+    "riskScore": 40,
+    "created": "2018-11-04",
+    "lastActivity": "2018-12-04"
+  },
+  {
+    "title": "Oort Back-end Development",
+    "imageUrl": "project.png",
+    "status": 3,
+    "users": 35,
+    "resources": 42,
+    "riskScore": 10,
+    "created": "2018-01-04",
+    "lastActivity": "2018-03-04"
+  },
+  {
+    "title": "PlayStation 3",
+    "imageUrl": "project.png",
+    "status": 1,
+    "users": 5,
+    "resources": 12,
+    "riskScore": 40,
+    "created": "2018-01-04",
+    "lastActivity": "2018-02-04"
+  },
+  {
+    "title": "Gaming Platform",
+    "imageUrl": "project.png",
+    "status": 2,
+    "users": 15,
     "resources": 2,
-    "riskScore": 80,
+    "riskScore": 23,
+    "created": "2018-03-04",
+    "lastActivity": "2018-04-04"
+  },
+  {
+    "title": "Asset Management",
+    "imageUrl": "project.png",
+    "status": 3,
+    "users": 2,
+    "resources": 23,
+    "riskScore": 82,
     "created": "2018-02-04",
-    "lastActivity": "2018-05-14"
+    "lastActivity": "2018-06-14"
   }
 ]
