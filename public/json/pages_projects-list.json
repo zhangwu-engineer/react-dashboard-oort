@@ -1,0 +1,22 @@
+[
+  {
+    "title": "PlayStation 4 1TB (Jet Black)",
+    "imageUrl": "project.png",
+    "status": 1,
+    "users": 5,
+    "resources": 12,
+    "riskScore": 40,
+    "created": "2018-01-04",
+    "lastActivity": "2018-03-04"
+  },
+  {
+    "title": "PlayStation 4 2TB",
+    "imageUrl": "project.png",
+    "status": 2,
+    "users": 2,
+    "resources": 2,
+    "riskScore": 80,
+    "created": "2018-02-04",
+    "lastActivity": "2018-05-14"
+  }
+]
