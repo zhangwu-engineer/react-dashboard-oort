@@ -51,15 +51,6 @@
   }
 }
 
-.card-table > thead:first-child > tr:first-child,
-.card-table > tbody:first-child > tr:first-child,
-.card-table > tfoot:first-child > tr:first-child {
-   > td,
-   > th {
-    border-top: 0;
-  }
-}
-
 @include ltr-only {
   .card-table > thead > tr,
   .card-table > tbody > tr,
