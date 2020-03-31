@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import axios from 'axios'
+import { connect } from 'react-redux'
 import '../../../vendor/libs/nouislider-react/nouislider-react.scss'
 import '../../../vendor/styles/pages/products.scss'
 
@@ -8,6 +8,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import '../../../vendor/libs/react-bootstrap-table2/react-bootstrap-table2.scss'
+import { getProjects } from "../../../store/actions/projects"
 
 const { SearchBar } = Search
 
@@ -24,14 +25,7 @@ class ProjectsTable extends Component {
     }
 
     // Load data
-    this.loadData('/json/pages_projects-list.json').then(data => {
-      this.setState({ data })
-    })
-  }
-
-  async loadData(url) {
-    const response = await axios.get(process.env.PUBLIC_URL + url)
-    return response.data
+    this.props.getProjects()
   }
 
   prevent(e) {
@@ -40,7 +34,7 @@ class ProjectsTable extends Component {
 
   render() {
     const isIE10Mode = document['documentMode'] === 10
-    
+
     const columns = [{
       text: 'Project',
       dataField: 'title',
@@ -129,7 +123,7 @@ class ProjectsTable extends Component {
           <Card>
             <ToolkitProvider
               keyField="title"
-              data={this.state.data}
+              data={this.props.projects}
               columns={columns}
               bootstrap4
               search>
@@ -156,4 +150,14 @@ class ProjectsTable extends Component {
   }
 }
 
-export default ProjectsTable
+const mapDispatchToProps = dispatch => {
+  return {
+    getProjects: () => dispatch(getProjects())
+  };
+}
+
+const mapStateToProps = state => {
+  return { projects: state.projects.projects };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsTable)
