@@ -61,11 +61,11 @@ class NewProject extends Component {
           <Card.Body>
             <Form>
               <Form.Row>
-                <Form.Group as={Col} md={6}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Name</Form.Label>
                   <Form.Control placeholder="Project Name" />
                 </Form.Group>
-                <Form.Group as={Col} md={6}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Owner</Form.Label>
                   <Form.Control placeholder="Project Owner" />
                 </Form.Group>
@@ -77,7 +77,7 @@ class NewProject extends Component {
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} md={4}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Status</Form.Label>
                   <select className="custom-select">
                     <option>Select status</option>
@@ -87,11 +87,11 @@ class NewProject extends Component {
                     <option>Cancelled</option>
                   </select>
                 </Form.Group>
-                <Form.Group as={Col} md={4}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Risk Score</Form.Label>
                   <Form.Control type="number" placeholder="Risk Score" />
                 </Form.Group>
-                <Form.Group as={Col} md={4}>
+                <Form.Group as={Col} md={3}>
                   <Form.Label>Risk Description</Form.Label>
                   <Form.Control placeholder="Risk Description" />
                 </Form.Group>
