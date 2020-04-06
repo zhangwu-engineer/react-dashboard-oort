@@ -36,8 +36,6 @@ class NewProject extends Component {
 
       startDate: new Date(),
       endDate: moment().add(5, 'days').toDate(),
-      created: new Date(),
-      lastActivity: moment().add(5, 'days').toDate(),
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -61,11 +59,11 @@ class NewProject extends Component {
           <Card.Body>
             <Form>
               <Form.Row>
-                <Form.Group as={Col} md={3}>
+                <Form.Group as={Col} md={4}>
                   <Form.Label>Name</Form.Label>
                   <Form.Control placeholder="Project Name" />
                 </Form.Group>
-                <Form.Group as={Col} md={3}>
+                <Form.Group as={Col} md={4}>
                   <Form.Label>Owner</Form.Label>
                   <Form.Control placeholder="Project Owner" />
                 </Form.Group>
@@ -77,7 +75,7 @@ class NewProject extends Component {
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} md={3}>
+                <Form.Group as={Col} md={4}>
                   <Form.Label>Status</Form.Label>
                   <select className="custom-select">
                     <option>Select status</option>
@@ -87,45 +85,7 @@ class NewProject extends Component {
                     <option>Cancelled</option>
                   </select>
                 </Form.Group>
-                <Form.Group as={Col} md={3}>
-                  <Form.Label>Risk Score</Form.Label>
-                  <Form.Control type="number" placeholder="Risk Score" />
-                </Form.Group>
-                <Form.Group as={Col} md={3}>
-                  <Form.Label>Risk Description</Form.Label>
-                  <Form.Control placeholder="Risk Description" />
-                </Form.Group>
-              </Form.Row>
-              <Form.Row>
-                <Form.Group as={Col} md={3}>
-                  <Form.Label>Created</Form.Label>
-                  <DatePicker className="form-control"
-                    calendarClassName = "react-datepicker--with-time"
-                    selected={this.state.created}
-                    onChange={e => this.handleChange('created', e)}
-                    showTimeSelect
-                    timeFormat="HH:mm"
-                    timeIntervals={15}
-                    dateFormat="MMMM d, yyyy h:mm aa"
-                    timeCaption="Time"
-                    todayButton={"Today"}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md={3}>
-                  <Form.Label>Last Activity</Form.Label>
-                  <DatePicker className="form-control"
-                    calendarClassName = "react-datepicker--with-time"
-                    selected={this.state.lastActivity}
-                    onChange={e => this.handleChange('lastActivity', e)}
-                    showTimeSelect
-                    timeFormat="HH:mm"
-                    timeIntervals={15}
-                    dateFormat="MMMM d, yyyy h:mm aa"
-                    timeCaption="Time"
-                    todayButton={"Today"}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md={3}>
+                <Form.Group as={Col} md={4}>
                   <Form.Label>Start Date</Form.Label>
                   <DatePicker className="form-control"
                     calendarClassName = "react-datepicker--with-time"
@@ -139,7 +99,7 @@ class NewProject extends Component {
                     todayButton={"Today"}
                   />
                 </Form.Group>
-                <Form.Group as={Col} md={3}>
+                <Form.Group as={Col} md={4}>
                   <Form.Label>End date</Form.Label>
                   <DatePicker className="form-control"
                     calendarClassName = "react-datepicker--with-time"
@@ -176,8 +136,11 @@ class NewProject extends Component {
                 </Form.Group>
               </Form.Row>
               <Form.Row className="mt-3">
-                <Form.Group as={Col} md={12}>
+                <Form.Group as={Col} md={1}>
                   <Button type="submit" variant="primary">Submit</Button>
+                </Form.Group>
+                <Form.Group as={Col} md={1}>
+                  <Button type="cancel" variant="danger">Cancel</Button>
                 </Form.Group>
               </Form.Row>
             </Form>
