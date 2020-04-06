@@ -3,7 +3,7 @@ import { Form, Button, Col, Card } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select';
 import moment from 'moment'
-import FileUpload from '../../../../components/forms/FileUpload'
+import FileUpload from '../../../forms/FileUpload'
 import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
 
 const USERS_LIST = [
@@ -27,10 +27,10 @@ const APPLICATIONS_LIST = [
   { value: 'app10', label: 'Application 10' },
 ];
 
-class NewProject extends Component {
+class EditProject extends Component {
   constructor(props) {
     super(props)
-    props.setTitle('New Project')
+    props.setTitle('Edit Project')
 
     this.state = {
 
@@ -51,7 +51,7 @@ class NewProject extends Component {
     return (
       <div>
         <h4 className="font-weight-bold py-3 mb-4">
-          <span className="text-muted font-weight-light">Projects /</span> New
+          <span className="text-muted font-weight-light">Projects /</span> Edit
         </h4>
 
         <Card className="mb-4">
@@ -150,4 +150,4 @@ class NewProject extends Component {
   }
 }
 
-export default NewProject
+export default EditProject
