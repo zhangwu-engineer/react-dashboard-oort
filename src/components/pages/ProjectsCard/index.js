@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { Card, ProgressBar, Form, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Card, ProgressBar, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 import { STATUSES } from '../../../shared/constants/projects'
 
 class ProjectsList extends Component {
   constructor(props) {
     super(props)
-    props.setTitle('Project list - Pages')
+    props.setTitle('Projects List - Pages')
 
     this.state = {
       statuses: {
         1: { title: 'Active', color: 'success' },
         2: { title: 'Pending', color: 'warning' }
       },
-
-      sortBy: '',
-      sortOrder: 'ASC',
-
       additionalData: {
         team: [
           { avatar: '2-small.png' },
@@ -35,6 +31,12 @@ class ProjectsList extends Component {
 
   renderSingleProjectCard(project) {
     const isRTL = document.documentElement.getAttribute('dir') === 'rtl'
+    const imageUrl = `${process.env.PUBLIC_URL}/img/${project.imageUrl ? project.imageUrl : 'project.png'}`
+    const iconName = project.status ? `${STATUSES[project.status].icon}` : 'default'
+    const statusLabel = project.status ? STATUSES[project.status].label : 'N/A'
+    const users = project.users ? project.users : 0
+    const resources = project.resources ? project.resources : 0
+    const riskScore = project.riskScore ? project.riskScore : 0
 
     return (
       <Col sm={6} xl={4} key={project.title}>
@@ -42,12 +44,12 @@ class ProjectsList extends Component {
           <Card.Body className="d-flex justify-content-between align-items-start pb-3">
             <div className="d-flex align-items-center pb-3">
               <div>
-                <img src={`${process.env.PUBLIC_URL}/img/${project.imageUrl}`} alt="Project Logo" className="ui-h-40 ui-bordered mr-3" />
+                <img src={imageUrl} alt="Project Logo" className="ui-h-40 ui-bordered mr-3" />
               </div>
               <div>
-                <a href="#d" onClick={this.prevent} className="text-body text-big font-weight-semibold">{project.title}</a>
-                <Badge className="align-text-bottom ml-2" variant={`${STATUSES[project.status-1].icon}`}>{STATUSES[project.status-1].label}</Badge>
-                <div className="text-muted small mt-1">{project.users} users, {project.resources} resources</div>
+                <a href="#d" onClick={this.prevent} className="text-body text-big font-weight-semibold">{project.name}</a>
+                <Badge className="align-text-bottom ml-2" variant={iconName}>{statusLabel}</Badge>
+                <div className="text-muted small mt-1">{users} users, {resources} resources</div>
               </div>
             </div>
             <DropdownButton variant="default icon-btn borderless rounded-pill md-btn-flat hide-arrow" size="sm" title={<i className="ion ion-ios-more"></i>} alignRight={!isRTL}>
@@ -57,9 +59,9 @@ class ProjectsList extends Component {
             </DropdownButton>
           </Card.Body>
 
-          <ProgressBar now={project.riskScore} className="rounded-0" style={{ height: '3px' }} />
+          <ProgressBar now={riskScore} className="rounded-0" style={{ height: '3px' }} />
           <div className="card-body small pt-2 pb-0">
-            <strong>{project.riskScore}%</strong> risk
+            <strong>{riskScore}%</strong> risk
           </div>
 
           <Card.Body className="pb-3">
@@ -96,59 +98,18 @@ class ProjectsList extends Component {
     )
   }
 
-  sortDynamic(a, b, sortBy, sortOrder) {
-    const sortOrientation = sortOrder === 'ASC' ? 1 : -1
-
-    if (sortBy === '') return 0
-    if (a[sortBy] instanceof Date) {
-      const secondsA = moment(a[sortBy]).valueOf()
-      const secondsB = moment(b[sortBy]).valueOf()
-      return (secondsA > secondsB) ? 1*sortOrientation : ((secondsB > secondsA) ? -1*sortOrientation : 0)
-    } else if (isNaN(a[sortBy])) {
-      return (a[sortBy].toString().localeCompare(b[sortBy]))*sortOrientation
-    }
-    return (a[sortBy] > b[sortBy]) ? 1*sortOrientation : ((b[sortBy] > a[sortBy]) ? -1*sortOrientation : 0)
-  }
+ 
 
   render() {
-    let projectsData = [...this.props.data]
-
-    projectsData =  projectsData
-      .sort((a, b) => this.sortDynamic(a, b, this.state.sortBy, this.state.sortOrder))
-      .map((project) => 
-        this.renderSingleProjectCard(project)
-      );
+    const { data } = this.props
+    const projectsData = data.map((project) => 
+      this.renderSingleProjectCard(project)
+    );
 
     return (
-      <div>
-
-        <h4 className="d-flex justify-content-between align-items-center font-weight-bold">
-          <div className="d-flex justify-content-end align-items-center w-100">
-            <Col md={3} className="mb-2">
-              <Form.Label>Sort order</Form.Label>
-              <Form.Control as="select" className="custom-select" value={this.state.sortOrder} onChange={e => this.setState({ sortOrder: e.target.value })}>
-                <option value="ASC">ASC</option>
-                <option value="DESC">DESC</option>
-              </Form.Control>
-            </Col>
-            <Col md={3} className="mb-2">
-              <Form.Label>Sort by</Form.Label>
-              <Form.Control as="select" className="custom-select" value={this.state.sortBy} onChange={e => this.setState({ sortBy: e.target.value })}>
-                <option value="">All</option>
-                <option value="title">Name</option>
-                <option value="riskScore">Risk</option>
-                <option value="lastActivity">Last Activity</option>
-                <option value="created">Created</option>
-              </Form.Control>
-            </Col>
-          </div>
-        </h4>
-
-        <Row>
-          {projectsData}
-        </Row>
-
-      </div>
+      <Row>
+        {projectsData}
+      </Row>
     )
   }
 }
