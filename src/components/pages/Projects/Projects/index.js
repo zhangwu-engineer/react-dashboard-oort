@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, ButtonGroup } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import ProjectsTable from '../../ProjectsTable'
@@ -53,7 +54,11 @@ class Projects extends Component {
             </ButtonGroup>
             {/* / View toggle */}
           </div>
-          <Button variant="outline-primary" className="mb-3 ml-3"><span className="ion ion-md-add"></span>&nbsp; Create Project</Button>
+          <Link to="/new-project">
+            <Button variant="outline-primary" className="mb-3 ml-3">
+                <span className="ion ion-md-add"></span>&nbsp; Create Project
+            </Button>
+          </Link>
         </div>
 
         {viewMode === 'row' && 
