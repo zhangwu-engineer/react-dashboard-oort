@@ -517,11 +517,7 @@ export const routes = [
   },
   {
     path: '/projects',
-    component: lazy(() => import('./components/pages/ProjectsList/index')),
-  },
-  {
-    path: '/projects-table',
-    component: lazy(() => import('./components/pages/ProjectsTable')),
+    component: lazy(() => import('./components/pages/Projects/Projects/index')),
   },
   {
     path: '/projects/:id',
