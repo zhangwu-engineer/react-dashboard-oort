@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Card, ProgressBar, Form, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
+import { STATUSES } from '../../../shared/constants/projects'
 
 class ProjectsList extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class ProjectsList extends Component {
               </div>
               <div>
                 <a href="#d" onClick={this.prevent} className="text-body text-big font-weight-semibold">{project.title}</a>
-                <Badge className="align-text-bottom ml-1">{project.status}</Badge>
+                <Badge className="align-text-bottom ml-2" variant={`${STATUSES[project.status-1].icon}`}>{STATUSES[project.status-1].label}</Badge>
                 <div className="text-muted small mt-1">{project.users} users, {project.resources} resources</div>
               </div>
             </div>
