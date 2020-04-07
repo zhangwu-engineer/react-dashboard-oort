@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import '../../../vendor/libs/nouislider-react/nouislider-react.scss'
 import '../../../vendor/styles/pages/products.scss'
+import { STATUSES } from '../../../shared/constants/projects'
 
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit'
 import BootstrapTable from 'react-bootstrap-table-next'
@@ -74,11 +75,13 @@ class ProjectsTable extends Component {
       sort: true,
       classes: 'py-2 align-middle',
       formatter: (cell, row) => {
-        return (<React.Fragment>
-          {row.status === 1 && <Badge variant="outline-success">Completed</Badge>}
-          {row.status === 2 && <Badge variant="outline-danger">Delayed</Badge>}
-          {row.status === 3 && <Badge variant="outline-info">Pending</Badge>}
-        </React.Fragment>)
+        return (
+          <React.Fragment>
+            <Badge variant={`outline-${STATUSES[row.status-1].icon}`}>
+              {STATUSES[row.status-1].label}
+            </Badge>
+          </React.Fragment>
+        )
       }
     }, {
       isDummyField: true,
