@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-
+import { connect } from 'react-redux'
+import { getProjects } from "../../../../store/actions/projects"
 import ProjectsTable from '../../ProjectsTable'
 import ProjectsList from '../../ProjectsCard'
 
@@ -15,16 +15,10 @@ class Projects extends Component {
       viewMode: 'col',
       data: [],
     }
-
-    // Load data
-    this.loadData('/json/pages_projects-list.json').then(data => {
-      this.setState({ data })
-    })
   }
 
-  async loadData(url) {
-    const response = await axios.get(process.env.PUBLIC_URL + url)
-    return response.data
+  componentWillMount() {
+    this.props.getProjects()
   }
 
   setViewMode(viewMode) {
@@ -37,7 +31,8 @@ class Projects extends Component {
 
   render() {
 
-    const { viewMode, data } = this.state
+    const { viewMode } = this.state
+    const { projects } = this.props
 
     return (
       <div>
@@ -62,14 +57,24 @@ class Projects extends Component {
         </div>
 
         {viewMode === 'row' && 
-          <ProjectsTable setTitle={this.props.setTitle} data={data} />
+          <ProjectsTable setTitle={this.props.setTitle} data={projects} />
         }
         {viewMode === 'col' && 
-          <ProjectsList setTitle={this.props.setTitle} data={data} />
+          <ProjectsList setTitle={this.props.setTitle} data={projects} />
         }
       </div>
     )
   }
 }
 
-export default Projects
+const mapDispatchToProps = dispatch => {
+  return {
+    getProjects: () => dispatch(getProjects())
+  };
+}
+
+const mapStateToProps = state => {
+  return { projects: state.projects.projects };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Projects)
