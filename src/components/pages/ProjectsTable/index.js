@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import axios from 'axios'
 import '../../../vendor/libs/nouislider-react/nouislider-react.scss'
 import '../../../vendor/styles/pages/products.scss'
 
@@ -15,23 +14,6 @@ class ProjectsTable extends Component {
   constructor(props) {
     super(props)
     props.setTitle('Projects Table - Pages')
-
-    this.state = {
-      data: [],
-      filterSales: [10, 834],
-      filterPrice: [10, 2000],
-      filterStatus: 'Any'
-    }
-
-    // Load data
-    this.loadData('/json/pages_projects-list.json').then(data => {
-      this.setState({ data })
-    })
-  }
-
-  async loadData(url) {
-    const response = await axios.get(process.env.PUBLIC_URL + url)
-    return response.data
   }
 
   prevent(e) {
@@ -116,11 +98,6 @@ class ProjectsTable extends Component {
 
     return (
       <div>
-        <h4 className="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
-          <div>Projects</div>
-          <Button variant="primary rounded-pill" className="d-block"><span className="ion ion-md-add"></span>&nbsp; Add project</Button>
-        </h4>
-
         {isIE10Mode && <div className="alert alert-danger">
           <strong>react-bootstrap-table2</strong> doesn't support Internet Explorer 10
         </div>}
@@ -129,7 +106,7 @@ class ProjectsTable extends Component {
           <Card>
             <ToolkitProvider
               keyField="title"
-              data={this.state.data}
+              data={this.props.data}
               columns={columns}
               bootstrap4
               search>

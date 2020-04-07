@@ -63,10 +63,7 @@ class LayoutSidenav extends Component {
         {/* Links */}
         <div className={`sidenav-inner ${this.props.orientation !== 'horizontal' ? 'py-1' : ''}`}>
 
-          <Sidenav.Menu linkText="Projects" active={this.isMenuActive('/projects')} open={this.isMenuOpen('/projects')}>
-            <Sidenav.RouterLink to="/projects">List</Sidenav.RouterLink>
-            <Sidenav.RouterLink to="/projects-table">Table</Sidenav.RouterLink>
-          </Sidenav.Menu>
+          <Sidenav.RouterLink to="/projects">Projects</Sidenav.RouterLink>
           
         </div>
       </Sidenav>
