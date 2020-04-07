@@ -1,6 +1,7 @@
 [
   {
     "title": "Front-end Development",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 1,
     "users": 5,
@@ -11,6 +12,7 @@
   },
   {
     "title": "Oort Admin Project",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 3,
     "users": 8,
@@ -21,6 +23,7 @@
   },
   {
     "title": "API Development",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 2,
     "users": 5,
@@ -31,6 +34,7 @@
   },
   {
     "title": "PlayStation 4",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 1,
     "users": 51,
@@ -41,6 +45,7 @@
   },
   {
     "title": "PlayStation 4 1TB (Jet Black)",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 1,
     "users": 25,
@@ -51,6 +56,7 @@
   },
   {
     "title": "Devops Project",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 2,
     "users": 35,
@@ -61,6 +67,7 @@
   },
   {
     "title": "PlayStation 4 2TB",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 2,
     "users": 25,
@@ -71,6 +78,7 @@
   },
   {
     "title": "Oort Front-end Development",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 3,
     "users": 5,
@@ -81,6 +89,7 @@
   },
   {
     "title": "Oort Back-end Development",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 3,
     "users": 35,
@@ -91,6 +100,7 @@
   },
   {
     "title": "PlayStation 3",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 1,
     "users": 5,
@@ -101,6 +111,7 @@
   },
   {
     "title": "Gaming Platform",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 2,
     "users": 15,
@@ -111,6 +122,7 @@
   },
   {
     "title": "Asset Management",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
     "imageUrl": "project.png",
     "status": 3,
     "users": 2,

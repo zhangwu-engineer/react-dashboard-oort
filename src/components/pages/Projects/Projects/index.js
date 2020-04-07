@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from 'react-bootstrap'
 import axios from 'axios'
 
 import ProjectsTable from '../../ProjectsTable'
-import ProjectsList from '../../ProjectsList'
+import ProjectsList from '../../ProjectsCard'
 
 class Projects extends Component {
   constructor(props) {
