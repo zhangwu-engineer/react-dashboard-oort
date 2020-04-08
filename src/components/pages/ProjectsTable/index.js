@@ -21,71 +21,94 @@ class ProjectsTable extends Component {
     e.preventDefault()
   }
 
-  render() {
-    const isIE10Mode = document['documentMode'] === 10
-    
-    const columns = [{
+  renderColumns(data) {
+    const singleProject = data.length > 0 && data[0]
+
+    let columns = [{
       text: 'Project',
-      dataField: 'title',
+      dataField: 'name',
       sort: true,
       classes: 'py-2 align-middle',
       headerStyle: { minWidth: '300px' },
       formatter: (cell, row) => {
+        const imageUrl = `${process.env.PUBLIC_URL}/img/${row.imageUrl ? row.imageUrl : 'project.png'}`
         return (
           <Media className="align-items-center">
-            <img className="d-block ui-w-40" src={`${process.env.PUBLIC_URL}/img/${row.imageUrl}`} alt="" />
+            <img className="d-block ui-w-40" src={imageUrl} alt="" />
             {/* Generate link to project here */}
-            <a href="#d" onClick={this.prevent} className="media-body d-block text-body ml-3">{row.title}</a>
+            <a href="#d" onClick={this.prevent} className="media-body d-block text-body ml-3">{row.name}</a>
           </Media>
         )
       }
-    }, {
-      text: 'Users',
-      dataField: 'users',
-      sort: true,
-      classes: 'py-2 align-middle'
-    }, {
-      text: 'Resources',
-      dataField: 'resources',
-      sort: true,
-      classes: 'py-2 align-middle'
-    }, {
-      text: 'Risk Score',
-      dataField: 'riskScore',
-      sort: true,
-      classes: 'py-2 align-middle',
-      formatter: (cell, row) => {
-        return (<React.Fragment>
-          {row.riskScore}%
-        </React.Fragment>)
-      }
-    }, {
-      text: 'Created',
-      dataField: 'created',
-      sort: true,
-      classes: 'py-2 align-middle'
-    }, {
-      text: 'Last Activity',
-      dataField: 'lastActivity',
-      sort: true,
-      classes: 'py-2 align-middle'
-    }, {
-      text: 'Status',
-      dataField: 'status',
-      sort: true,
-      classes: 'py-2 align-middle',
-      formatter: (cell, row) => {
-        return (
-          <React.Fragment>
-            <Badge variant={`outline-${STATUSES[row.status-1].icon}`}>
-              {STATUSES[row.status-1].label}
-            </Badge>
-          </React.Fragment>
-        )
-      }
-    }, {
+    }]
+
+    if (singleProject.users) {
+      columns.push({
+        text: 'Users',
+        dataField: 'users',
+        sort: true,
+        classes: 'py-2 align-middle'
+      })
+    }
+    if (singleProject.resources) {
+      columns.push({
+        text: 'Resources',
+        dataField: 'resources',
+        sort: true,
+        classes: 'py-2 align-middle'
+      })
+    }
+    if (singleProject.riskScore) {
+      columns.push({
+        text: 'Risk Score',
+        dataField: 'riskScore',
+        sort: true,
+        classes: 'py-2 align-middle',
+        formatter: (cell, row) => {
+          return (<React.Fragment>
+            {row.riskScore}%
+          </React.Fragment>)
+        }
+      })
+    }
+    if (singleProject.created) {
+      columns.push({
+        text: 'Created',
+        dataField: 'created',
+        sort: true,
+        classes: 'py-2 align-middle'
+      })
+    }
+    if (singleProject.lastActivity) {
+      columns.push({
+        text: 'Last Activity',
+        dataField: 'lastActivity',
+        sort: true,
+        classes: 'py-2 align-middle'
+      })
+    }
+    if (singleProject.status) {
+      columns.push({
+        text: 'Status',
+        dataField: 'status',
+        sort: true,
+        classes: 'py-2 align-middle',
+        formatter: (cell, row) => {
+          const iconName = row.status ? `${STATUSES[row.status].icon}` : 'outline'
+          const statusLabel = row.status ? STATUSES[row.status].label : 'N/A'
+          return (
+            <React.Fragment>
+              <Badge variant={iconName}>
+                {statusLabel}
+              </Badge>
+            </React.Fragment>
+          )
+        }
+      })
+    }
+    columns.push({
       isDummyField: true,
-      text: '',
+      text: 'Actions',
       dataField: 'actions',
       classes: 'py-2 align-middle text-nowrap',
       formatter: (cell, row) => (<React.Fragment>
@@ -97,7 +120,14 @@ class ProjectsTable extends Component {
           <Button variant="default btn-xs icon-btn md-btn-flat"><i className="ion ion-md-create"></i></Button>
         </OverlayTrigger>
       </React.Fragment>)
-    }]
+    })
+
+    return columns
+  }
+
+  render() {
+    const isIE10Mode = document['documentMode'] === 10
+    const { data } = this.props    
 
     return (
       <div>
@@ -108,9 +138,9 @@ class ProjectsTable extends Component {
         {!isIE10Mode &&
           <Card>
             <ToolkitProvider
-              keyField="title"
-              data={this.props.data}
-              columns={columns}
+              keyField="name"
+              data={data}
+              columns={this.renderColumns(data)}
               bootstrap4
               search>
               {props => (<React.Fragment>
