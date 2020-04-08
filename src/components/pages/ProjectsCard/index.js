@@ -39,7 +39,7 @@ class ProjectsList extends Component {
     const riskScore = project.riskScore ? project.riskScore : 0
 
     return (
-      <Col sm={6} xl={4} key={project.title}>
+      <Col sm={6} xl={4} key={project.name}>
         <Card className="mb-4">
           <Card.Body className="d-flex justify-content-between align-items-start pb-3">
             <div className="d-flex align-items-center pb-3">
