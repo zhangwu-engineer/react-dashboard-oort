@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Card, ProgressBar, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
-import { STATUSES } from '../../../shared/constants/projects'
+import { STATUSES } from '../../../../shared/constants/projects'
 
-class ProjectsList extends Component {
+class ProjectsGrid extends Component {
   constructor(props) {
     super(props)
-    props.setTitle('Projects List - Pages')
+    props.setTitle('Projects Grid - Pages')
 
     this.state = {
       statuses: {
@@ -114,4 +114,4 @@ class ProjectsList extends Component {
   }
 }
 
-export default ProjectsList
+export default ProjectsGrid
