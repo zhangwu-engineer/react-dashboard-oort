@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup, Form, Col } from 'react-bootstrap'
+import { Button, ButtonGroup, Form } from 'react-bootstrap'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getProjects } from "../../../../store/actions/projects"
-import ProjectsTable from '../../ProjectsTable'
-import ProjectsList from '../../ProjectsCard'
+import ProjectsList from '../ProjectsList'
+import ProjectsGrid from '../ProjectsGrid'
 
 class Projects extends Component {
   constructor(props) {
@@ -95,10 +95,10 @@ class Projects extends Component {
         </div>
 
         {viewMode === 'row' && 
-          <ProjectsTable setTitle={this.props.setTitle} data={sortedProjects} />
+          <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} />
         }
         {viewMode === 'col' && 
-          <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} />
+          <ProjectsGrid setTitle={this.props.setTitle} data={sortedProjects} />
         }
       </div>
     )

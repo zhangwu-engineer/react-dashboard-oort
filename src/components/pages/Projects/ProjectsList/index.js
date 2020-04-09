@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import '../../../vendor/libs/nouislider-react/nouislider-react.scss'
-import '../../../vendor/styles/pages/products.scss'
-import { STATUSES } from '../../../shared/constants/projects'
+import '../../../../vendor/libs/nouislider-react/nouislider-react.scss'
+import '../../../../vendor/styles/pages/products.scss'
+import { STATUSES } from '../../../../shared/constants/projects'
 
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
-import '../../../vendor/libs/react-bootstrap-table2/react-bootstrap-table2.scss'
+import '../../../../vendor/libs/react-bootstrap-table2/react-bootstrap-table2.scss'
 
 const { SearchBar } = Search
 
-class ProjectsTable extends Component {
+class ProjectsList extends Component {
   constructor(props) {
     super(props)
-    props.setTitle('Projects Table - Pages')
+    props.setTitle('Projects List - Pages')
   }
 
   prevent(e) {
@@ -166,4 +166,4 @@ class ProjectsTable extends Component {
   }
 }
 
-export default ProjectsTable
+export default ProjectsList
