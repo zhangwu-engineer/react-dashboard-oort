@@ -47,7 +47,7 @@ class ProjectsGrid extends Component {
                 <img src={imageUrl} alt="Project Logo" className="ui-h-40 ui-bordered mr-3" />
               </div>
               <div>
-                <a href="#d" onClick={this.prevent} className="text-body text-big font-weight-semibold">{project.name}</a>
+                <a href={`/projects/${project.id}`} className="text-body text-big font-weight-semibold">{project.name}</a>
                 <Badge className="align-text-bottom ml-2" variant={iconName}>{statusLabel}</Badge>
                 <div className="text-muted small mt-1">{users} users, {resources} resources</div>
               </div>

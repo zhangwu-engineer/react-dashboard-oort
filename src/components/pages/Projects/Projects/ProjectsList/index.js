@@ -36,7 +36,7 @@ class ProjectsList extends Component {
           <Media className="align-items-center">
             <img className="d-block ui-w-40" src={imageUrl} alt="" />
             {/* Generate link to project here */}
-            <a href="#d" onClick={this.prevent} className="media-body d-block text-body ml-3">{row.name}</a>
+            <a href={`/projects/${row.id}`} className="media-body d-block text-body ml-3">{row.name}</a>
           </Media>
         )
       }
