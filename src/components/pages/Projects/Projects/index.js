@@ -4,8 +4,8 @@ import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getProjects } from "../../../../store/actions/projects"
-import ProjectsList from '../ProjectsList'
-import ProjectsGrid from '../ProjectsGrid'
+import ProjectsList from './ProjectsList'
+import ProjectsGrid from './ProjectsGrid'
 
 class Projects extends Component {
   constructor(props) {

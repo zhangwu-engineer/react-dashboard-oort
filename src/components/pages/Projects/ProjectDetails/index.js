@@ -46,7 +46,7 @@ class ProjectsItem extends Component {
         priority: 1,
         tasks: 44,
         completedTasks: 29,
-        imageUrl: `${process.env.PUBLIC_URL}/img/project.png`,
+        imageUrl: `${process.env.PUBLIC_URL}/img/mock/project.png`,
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus.`,
         createdAt: new Date('02/01/2018'),
         lastUpdate: new Date('02/18/2018'),
