@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import '../../../../../vendor/libs/nouislider-react/nouislider-react.scss'
 import '../../../../../vendor/styles/pages/products.scss'
@@ -113,11 +114,15 @@ class ProjectsList extends Component {
       classes: 'py-2 align-middle text-nowrap',
       formatter: (cell, row) => (<React.Fragment>
         <OverlayTrigger overlay={<Tooltip>Show</Tooltip>}>
-          <Button variant="default btn-xs icon-btn md-btn-flat"><i className="ion ion-md-eye"></i></Button>
+          <Button variant="default btn-xs icon-btn md-btn-flat" as={NavLink} to={`/projects/${row.id}`}>
+            <i className="ion ion-md-eye"></i>
+          </Button>
         </OverlayTrigger>
         &nbsp;
         <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
-          <Button variant="default btn-xs icon-btn md-btn-flat"><i className="ion ion-md-create"></i></Button>
+          <Button variant="default btn-xs icon-btn md-btn-flat" as={NavLink} to={`/projects/${row.id}/edit`}>
+            <i className="ion ion-md-create"></i>
+          </Button>
         </OverlayTrigger>
       </React.Fragment>)
     })
