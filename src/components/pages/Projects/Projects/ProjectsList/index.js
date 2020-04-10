@@ -145,7 +145,7 @@ class ProjectsList extends Component {
               search>
               {props => (<React.Fragment>
                 {/* Search bar */}
-                <Card.Body className="d-flex justify-content-end pb-0">
+                <Card.Body className="d-flex justify-content-end pt-2 pr-2 pb-0">
                   <div style={{ maxWidth: '300px' }}>
                     <SearchBar {...props.searchProps} />
                   </div>
