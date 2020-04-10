@@ -23,7 +23,7 @@ class ProjectsItem extends Component {
 
     this.state = {
       projectPath: [
-        { text: 'Projects' },
+        { text: 'Projects', url: '/projects' },
         { text: 'Website development', active: true }
       ],
 
@@ -128,7 +128,7 @@ class ProjectsItem extends Component {
             <h4 className="py-3 mb-4">
               <Breadcrumb className="font-weight-bold m-0" listProps={{ className: 'm-0' }}>
                 {this.state.projectPath.map((item, i) =>
-                  <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text}>{item.text}</Breadcrumb.Item>
+                  <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text} href={item.url}>{item.text}</Breadcrumb.Item>
                 )}
               </Breadcrumb>
             </h4>
