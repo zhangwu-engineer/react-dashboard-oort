@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Card, ProgressBar, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
-import { STATUSES } from '../../../../shared/constants/projects'
+import { STATUSES } from '../../../../../shared/constants/projects'
 
 class ProjectsGrid extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class ProjectsGrid extends Component {
 
   renderSingleProjectCard(project) {
     const isRTL = document.documentElement.getAttribute('dir') === 'rtl'
-    const imageUrl = `${process.env.PUBLIC_URL}/img/${project.imageUrl ? project.imageUrl : 'project.png'}`
+    const imageUrl = project.imageUrl ? project.imageUrl : `${process.env.PUBLIC_URL}/img/mock/cola.png`
     const iconName = project.status ? `${STATUSES[project.status].icon}` : 'default'
     const statusLabel = project.status ? STATUSES[project.status].label : 'N/A'
     const users = project.users ? project.users : 0

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import '../../../../../vendor/libs/nouislider-react/nouislider-react.scss'
 import '../../../../../vendor/styles/pages/products.scss'
-import { STATUSES } from '../../../../shared/constants/projects'
+import { STATUSES } from '../../../../../shared/constants/projects'
 
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit'
 import BootstrapTable from 'react-bootstrap-table-next'
@@ -31,7 +31,7 @@ class ProjectsList extends Component {
       classes: 'py-2 align-middle',
       headerStyle: { minWidth: '300px' },
       formatter: (cell, row) => {
-        const imageUrl = `${process.env.PUBLIC_URL}/img/${row.imageUrl ? row.imageUrl : 'project.png'}`
+        const imageUrl = row.imageUrl ? row.imageUrl : `${process.env.PUBLIC_URL}/img/mock/cola.png`
         return (
           <Media className="align-items-center">
             <img className="d-block ui-w-40" src={imageUrl} alt="" />
