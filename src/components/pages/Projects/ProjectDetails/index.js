@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, ProgressBar, ListGroup } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import '../../../../vendor/styles/pages/projects.scss'
 import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
+import { getProject } from "../../../../store/actions/projects"
 
 // react-datepicker custom input
 
@@ -16,7 +19,7 @@ class DateInput extends Component {
   }
 }
 
-class ProjectsItem extends Component {
+class ProjectDetails extends Component {
   constructor(props) {
     super(props)
     props.setTitle('Project item - Pages')
@@ -108,6 +111,10 @@ class ProjectsItem extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentWillMount() {
+    this.props.getProject(this.props.match.params.id)
+  }
+
   prevent(e) {
     e.preventDefault()
   }
@@ -120,7 +127,6 @@ class ProjectsItem extends Component {
   }
 
   render() {
-
     return (
       <div>
         <Row>
@@ -292,4 +298,14 @@ class ProjectsItem extends Component {
   }
 }
 
-export default ProjectsItem
+const mapDispatchToProps = dispatch => {
+  return {
+    getProject: (id) => dispatch(getProject(id))
+  };
+}
+
+const mapStateToProps = state => {
+  return { project: state.projects.project };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProjectDetails))
