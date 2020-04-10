@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { NavLink } from 'react-router-dom'
 import { Card, ProgressBar, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 import { STATUSES } from '../../../../../shared/constants/projects'
 
@@ -53,8 +54,8 @@ class ProjectsGrid extends Component {
               </div>
             </div>
             <DropdownButton variant="default icon-btn borderless rounded-pill md-btn-flat hide-arrow" size="sm" title={<i className="ion ion-ios-more"></i>} alignRight={!isRTL}>
-              <Dropdown.Item>View</Dropdown.Item>
-              <Dropdown.Item>Edit</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to={`/projects/${project.id}`}>View</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to={`/projects/${project.id}/edit`}>Edit</Dropdown.Item>
               <Dropdown.Item>Suspend</Dropdown.Item>
             </DropdownButton>
           </Card.Body>
