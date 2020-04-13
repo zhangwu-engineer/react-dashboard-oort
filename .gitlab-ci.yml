@@ -1,0 +1,188 @@
+.conjur-vars: &conjur-vars
+  variables:
+    CONJUR_APPLIANCE_URL: https://conjur.oort.io
+    CONJUR_SSL_CERTIFICATE: $CONJUR_MASTER_CERT
+    CONJUR_ACCOUNT: oort
+    CONJUR_AUTHN_LOGIN: $CONJUR_MASTER_AUTHN_LOGIN
+    CONJUR_AUTHN_API_KEY: $CONJUR_MASTER_AUTHN_API_KEY
+
+.build-vars: &build-vars
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+  UI_IMAGE: $CI_REGISTRY_IMAGE/ui
+  UI_IMAGE_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  COMPOSE_IMAGE: $CI_REGISTRY_IMAGE/compose:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/deploy:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    
+.build-config:
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  image: $COMPOSE_IMAGE
+  services:
+    - docker:dind
+    
+.deploy-vars: &deploy-vars
+  <<: *build-vars
+  
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+  
+.deploy_review-vars: &deploy_review-vars
+  <<: *deploy-vars
+
+.deploy_staging-vars: &deploy_staging-vars
+  <<: *deploy-vars
+  
+.deploy-config:
+  image: $DEPLOY_IMAGE
+  cache:
+    key: "$CI_COMMIT_SHORT_SHA"
+    paths:
+    - cd/secrets.yml
+    - cd/deploy.sh
+    - cd/Gemfile
+    - cd/deploy.rb
+    - lib/format_seed_user.rb
+    
+.review-env: &review-env
+  url: http://$CI_PROJECT_ID-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+  name: review/$CI_COMMIT_REF_NAME
+
+.staging-env: &staging-env
+  url: http://staging.$KUBE_INGRESS_BASE_DOMAIN
+  name: staging
+
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+  
+stages:
+  - build
+  - test
+  - review
+  - deploy
+
+images:
+  stage: .pre
+  image: docker:19
+  services:
+    - docker:dind
+  variables:
+    <<: *build-vars
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - cd cd
+    - docker build -q -f Dockerfile.compose -t $COMPOSE_IMAGE .
+    - docker push $COMPOSE_IMAGE >/dev/null
+    - docker build -q -f Dockerfile.deploy -t $DEPLOY_IMAGE .
+    - docker push $DEPLOY_IMAGE >/dev/null
+
+build:
+  extends:
+  - .conjur-vars
+  - .build-config
+  stage: build
+  variables:
+    <<: *build-vars
+  script:
+    - docker pull $IMAGE:master >/dev/null || true
+    - docker pull $IMAGE:$CI_COMMIT_REF_SLUG >/dev/null || true
+    - summon -e staging ./build.sh ${NO_CACHE:--q --cache-from $IMAGE:master --cache-from $IMAGE:$CI_COMMIT_REF_SLUG} --pull -t $IMAGE:$IMAGE_TAG .
+    - docker push $IMAGE:$IMAGE_TAG >/dev/bull
+    - docker tag $IMAGE:$IMAGE_TAG $IMAGE:$CI_COMMIT_REF_SLUG
+    - docker push $IMAGE:$CI_COMMIT_REF_SLUG >/dev/null
+    
+test:
+  extends:
+  - .conjur-vars
+  - .build-config
+  stage: test
+  variables:
+    <<: *build-vars
+  script:
+    - docker pull $UI_IMAGE:$UI_IMAGE_TAG >/dev/null
+    # Summon is only used to provide hardcoded string values as
+    # environment variables to testing. It doesn't need to contact
+    # Conjur.
+    - summon -e test ci/test.sh
+
+deploy_review:
+  extends:
+  - .conjur-vars
+  - .deploy-config
+  stage: review
+  variables:
+    <<: *deploy_review-vars
+  script:
+    - cd cd
+    - summon ./deploy.sh install
+  environment:
+    <<: *review-env
+    on_stop: stop_review
+  only:
+    refs:
+      - branches
+  except:
+    refs:
+      - master
+  when: manual
+  
+.stop_review-vars: &stop_review-vars
+  <<: *deploy_review-vars
+  GIT_STRATEGY: none
+
+.stop_staging-vars: &stop_staging-vars
+  <<: *deploy_staging-vars
+  GIT_STRATEGY: none
+  
+stop_review:
+  extends:
+  - .conjur-vars
+  - .deploy-config
+  stage: review
+  variables:
+    <<: *stop_review-vars
+  script:
+    - cd cd
+    - summon ./deploy.sh drop_db
+    - summon ./deploy.sh uninstall
+  environment:
+    <<: *review-env
+    action: stop
+  when: manual
+  
+
+deploy_staging:
+  extends:
+  - .conjur-vars
+  - .deploy-config
+  stage: deploy
+  variables:
+    <<: *deploy_staging-vars
+  script:
+    - cd cd
+    - summon ./deploy.sh install
+  environment:
+    <<: *staging-env
+    on_stop: stop_staging
+  only:
+    refs:
+      - master
+  when: manual
+      
+stop_staging:
+  extends:
+  - .conjur-vars
+  - .deploy-config
+  stage: deploy
+  variables:
+    <<: *stop_staging-vars
+  script:
+    - cd cd
+    - summon ./deploy.sh uninstall
+  environment:
+    <<: *staging-env
+    on_stop: stop_staging
+    action: stop
+  when: manual
+    
