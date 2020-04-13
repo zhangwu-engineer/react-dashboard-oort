@@ -20,12 +20,12 @@
   image: $COMPOSE_IMAGE
   services:
     - docker:dind
-    
-.deploy-vars: &deploy-vars
+
+.test-vars: &test-vars
   <<: *build-vars
   
-variables:
-  GIT_SUBMODULE_STRATEGY: normal
+.deploy-vars: &deploy-vars
+  <<: *build-vars
   
 .deploy_review-vars: &deploy_review-vars
   <<: *deploy-vars
@@ -98,13 +98,14 @@ test:
   - .build-config
   stage: test
   variables:
-    <<: *build-vars
+    <<: *test-vars
   script:
     - docker pull $UI_IMAGE:$UI_IMAGE_TAG >/dev/null
     # Summon is only used to provide hardcoded string values as
     # environment variables to testing. It doesn't need to contact
     # Conjur.
-    - summon -e test ci/test.sh
+    # XXX take out --passWithNoTests once some tests are added
+    - summon -e test ci/test.sh --passWithNoTests
 
 deploy_review:
   extends:
