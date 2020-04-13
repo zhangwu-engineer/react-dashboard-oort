@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd /ui
+exec npx http-server -p ${PORT:-3000} build
