@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup, Form } from 'react-bootstrap'
+import { Button, ButtonGroup, Form, Modal } from 'react-bootstrap'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -17,9 +17,13 @@ class Projects extends Component {
       viewMode: 'col',
       sortBy: '',
       sortOrder: 'ASC',
+      showDeleteConfirmModal: false,
+      idToDelete: 0
     }
 
     this.handleDeleteProject = this.handleDeleteProject.bind(this)
+    this.selectIdToDelete = this.selectIdToDelete.bind(this)
+    this.onDefaultModalClose = this.onDefaultModalClose.bind(this)
   }
 
   componentWillMount() {
@@ -44,8 +48,18 @@ class Projects extends Component {
     this.setState({ viewMode })
   }
 
-  handleDeleteProject(id) {
-    this.props.deleteProject(id)
+  handleDeleteProject() {
+    const { idToDelete } = this.state
+    this.props.deleteProject(idToDelete)
+    this.onDefaultModalClose()
+  }
+
+  selectIdToDelete(idToDelete) {
+    this.setState({ idToDelete, showDeleteConfirmModal: true })
+  }
+
+  onDefaultModalClose() {
+    this.setState({ showDeleteConfirmModal: false })
   }
 
   prevent(e) {
@@ -54,7 +68,7 @@ class Projects extends Component {
 
   render() {
 
-    const { viewMode } = this.state
+    const { viewMode, showDeleteConfirmModal } = this.state
     const { projects } = this.props
 
     const sortedProjects =  [...projects]
@@ -100,6 +114,22 @@ class Projects extends Component {
             </Form>
           </div>
         </div>
+
+        <Modal show={showDeleteConfirmModal} onHide={this.onDefaultModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title as="h5">
+              Confirm
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure to delete this project?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="default" onClick={this.onDefaultModalClose}>No</Button>
+            <Button variant="primary" onClick={this.handleDeleteProject}>Yes</Button>
+          </Modal.Footer>
+        </Modal>
+        
         {!sortedProjects && <Loader />  }
         {sortedProjects && sortedProjects.length === 0 &&
           <div className="layout-inner d-flex justify-content-center pb-2 mb-2">
@@ -107,10 +137,10 @@ class Projects extends Component {
           </div>
         }
         {sortedProjects && viewMode === 'row' &&
-          <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} deleteProject={this.handleDeleteProject} />
+          <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} deleteProject={this.selectIdToDelete} />
         }
         {sortedProjects && viewMode === 'col' &&
-          <ProjectsGrid setTitle={this.props.setTitle} data={sortedProjects} deleteProject={this.handleDeleteProject} />
+          <ProjectsGrid setTitle={this.props.setTitle} data={sortedProjects} deleteProject={this.selectIdToDelete} />
         }
       </div>
     )
