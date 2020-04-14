@@ -9,8 +9,8 @@
 .build-vars: &build-vars
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
-  UI_IMAGE: $CI_REGISTRY_IMAGE/ui
-  UI_IMAGE_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  IMAGE: $CI_REGISTRY_IMAGE/ui
+  IMAGE_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   COMPOSE_IMAGE: $CI_REGISTRY_IMAGE/compose:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/deploy:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     
@@ -26,6 +26,7 @@
   
 .deploy-vars: &deploy-vars
   <<: *build-vars
+  HELM_OVERRIDE_FILE: ../helm-values.yaml
   
 .deploy_review-vars: &deploy_review-vars
   <<: *deploy-vars
@@ -42,7 +43,6 @@
     - cd/deploy.sh
     - cd/Gemfile
     - cd/deploy.rb
-    - lib/format_seed_user.rb
     
 .review-env: &review-env
   url: http://$CI_PROJECT_ID-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
@@ -100,7 +100,7 @@ test:
   variables:
     <<: *test-vars
   script:
-    - docker pull $UI_IMAGE:$UI_IMAGE_TAG >/dev/null
+    - docker pull $IMAGE:$IMAGE_TAG >/dev/null
     # Summon is only used to provide hardcoded string values as
     # environment variables to testing. It doesn't need to contact
     # Conjur.
@@ -116,6 +116,7 @@ deploy_review:
     <<: *deploy_review-vars
   script:
     - cd cd
+    - summon ./deploy.sh prepare_install
     - summon ./deploy.sh install
   environment:
     <<: *review-env
@@ -145,7 +146,6 @@ stop_review:
     <<: *stop_review-vars
   script:
     - cd cd
-    - summon ./deploy.sh drop_db
     - summon ./deploy.sh uninstall
   environment:
     <<: *review-env
@@ -162,6 +162,7 @@ deploy_staging:
     <<: *deploy_staging-vars
   script:
     - cd cd
+    - summon ./deploy.sh prepare_install
     - summon ./deploy.sh install
   environment:
     <<: *staging-env
