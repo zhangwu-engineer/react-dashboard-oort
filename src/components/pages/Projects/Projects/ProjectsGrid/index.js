@@ -30,6 +30,10 @@ class ProjectsGrid extends Component {
     e.preventDefault()
   }
 
+  handleDeleteProject(id) {
+    this.props.deleteProject(id)
+  }
+
   renderSingleProjectCard(project) {
     const isRTL = document.documentElement.getAttribute('dir') === 'rtl'
     const imageUrl = project.imageUrl ? project.imageUrl : `${process.env.PUBLIC_URL}/img/mock/cola.png`
@@ -56,7 +60,7 @@ class ProjectsGrid extends Component {
             <DropdownButton variant="default icon-btn borderless rounded-pill md-btn-flat hide-arrow" size="sm" title={<i className="ion ion-ios-more"></i>} alignRight={!isRTL}>
               <Dropdown.Item as={NavLink} to={`/projects/${project.id}`}>View</Dropdown.Item>
               <Dropdown.Item as={NavLink} to={`/projects/${project.id}/edit`}>Edit</Dropdown.Item>
-              <Dropdown.Item>Suspend</Dropdown.Item>
+              <Dropdown.Item onClick={() => this.handleDeleteProject(project.id)}>Delete</Dropdown.Item>
             </DropdownButton>
           </Card.Body>
 

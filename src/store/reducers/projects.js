@@ -1,4 +1,4 @@
-import { GET_PROJECTS_SUCCESS, GET_PROJECT_SUCCESS } from "../constants/action-types";
+import { GET_PROJECTS_SUCCESS, GET_PROJECT_SUCCESS, DELETE_PROJECT_SUCCESS } from "../constants/action-types";
 
 const initialState = {
   projects: [],
@@ -14,6 +14,10 @@ function rootReducer(state = initialState, action) {
     case GET_PROJECT_SUCCESS:
       return Object.assign({}, state, {
         project: action.payload
+      })
+    case DELETE_PROJECT_SUCCESS:
+      return Object.assign({}, state, {
+        projects: state.projects.filter(project => project.id !== action.payload.id)
       })
     default: return state
   }

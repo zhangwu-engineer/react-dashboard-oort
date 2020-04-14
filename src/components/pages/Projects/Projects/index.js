@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Form } from 'react-bootstrap'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getProjects } from "../../../../store/actions/projects"
+import { getProjects, deleteProject } from "../../../../store/actions/projects"
 import ProjectsList from './ProjectsList'
 import ProjectsGrid from './ProjectsGrid'
 import Loader from '../../../../shared/Loader'
@@ -18,6 +18,8 @@ class Projects extends Component {
       sortBy: '',
       sortOrder: 'ASC',
     }
+
+    this.handleDeleteProject = this.handleDeleteProject.bind(this)
   }
 
   componentWillMount() {
@@ -40,6 +42,10 @@ class Projects extends Component {
 
   setViewMode(viewMode) {
     this.setState({ viewMode })
+  }
+
+  handleDeleteProject(id) {
+    this.props.deleteProject(id)
   }
 
   prevent(e) {
@@ -101,10 +107,10 @@ class Projects extends Component {
           </div>
         }
         {sortedProjects && viewMode === 'row' &&
-          <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} />
+          <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} deleteProject={this.handleDeleteProject} />
         }
         {sortedProjects && viewMode === 'col' &&
-          <ProjectsGrid setTitle={this.props.setTitle} data={sortedProjects} />
+          <ProjectsGrid setTitle={this.props.setTitle} data={sortedProjects} deleteProject={this.handleDeleteProject} />
         }
       </div>
     )
@@ -113,7 +119,8 @@ class Projects extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProjects: () => dispatch(getProjects())
+    getProjects: () => dispatch(getProjects()),
+    deleteProject: id => dispatch(deleteProject(id))
   };
 }
 

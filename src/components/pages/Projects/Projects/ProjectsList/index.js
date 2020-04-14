@@ -22,6 +22,10 @@ class ProjectsList extends Component {
     e.preventDefault()
   }
 
+  handleDeleteProject(id) {
+    this.props.deleteProject(id)
+  }
+
   renderColumns(data) {
     const singleProject = data.length > 0 && data[0]
 
@@ -122,6 +126,12 @@ class ProjectsList extends Component {
         <OverlayTrigger overlay={<Tooltip>Edit</Tooltip>}>
           <Button variant="default btn-xs icon-btn md-btn-flat" as={NavLink} to={`/projects/${row.id}/edit`}>
             <i className="ion ion-md-create"></i>
+          </Button>
+        </OverlayTrigger>
+        &nbsp;
+        <OverlayTrigger overlay={<Tooltip>Delete</Tooltip>}>
+          <Button variant="default btn-xs icon-btn md-btn-flat" onClick={() => this.handleDeleteProject(row.id)}>
+            <i className="ion ion-md-trash"></i>
           </Button>
         </OverlayTrigger>
       </React.Fragment>)
