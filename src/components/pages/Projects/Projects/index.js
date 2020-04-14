@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { getProjects } from "../../../../store/actions/projects"
 import ProjectsList from './ProjectsList'
 import ProjectsGrid from './ProjectsGrid'
+import Loader from '../../../../shared/Loader'
 
 class Projects extends Component {
   constructor(props) {
@@ -93,11 +94,16 @@ class Projects extends Component {
             </Form>
           </div>
         </div>
-
-        {viewMode === 'row' && 
+        {!sortedProjects && <Loader />  }
+        {sortedProjects && sortedProjects.length === 0 &&
+          <div className="layout-inner d-flex justify-content-center pb-2 mb-2">
+            No data
+          </div>
+        }
+        {sortedProjects && viewMode === 'row' &&
           <ProjectsList setTitle={this.props.setTitle} data={sortedProjects} />
         }
-        {viewMode === 'col' && 
+        {sortedProjects && viewMode === 'col' &&
           <ProjectsGrid setTitle={this.props.setTitle} data={sortedProjects} />
         }
       </div>
