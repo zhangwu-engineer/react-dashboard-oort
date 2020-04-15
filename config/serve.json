@@ -1,0 +1,13 @@
+{
+  "public": "build",
+  "directoryListing": false,
+  "headers": [
+    {
+      "source": "status",
+      "headers": [{
+        "key": "Content-Type",
+        "value": "application/json"
+      }]
+    }
+  ]
+}

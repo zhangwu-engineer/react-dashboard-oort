@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cd /ui
-exec npx http-server -p ${PORT:-3000} build
+exec npx serve -l ${PORT:-3000} --config config/serve.json

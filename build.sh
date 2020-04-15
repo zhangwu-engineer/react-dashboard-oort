@@ -5,4 +5,7 @@ if [[ ! -z "${CI_DEBUG_TRACE:-}" ]]; then
   set -x
 fi
 
-docker build -t ui --build-arg REACT_APP_CLIENT_ID=$REACT_APP_CLIENT_ID --build-arg REACT_APP_ISSUER=$REACT_APP_ISSUER .
+docker build\
+  --build-arg REACT_APP_OKTA_ISSUER=${REACT_APP_OKTA_ISSUER}\
+  --build-arg REACT_APP_OKTA_CLIENT_ID=${REACT_APP_OKTA_CLIENT_ID}\
+  "$@"
