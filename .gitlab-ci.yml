@@ -26,6 +26,7 @@
   
 .deploy-vars: &deploy-vars
   <<: *build-vars
+  OKTA_APP_NAME: console
   HELM_OVERRIDE_FILE: ../helm-values.yaml
   
 .deploy_review-vars: &deploy_review-vars
