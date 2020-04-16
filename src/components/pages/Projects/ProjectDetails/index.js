@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, ProgressBar, ListGroup } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import '../../../../vendor/styles/pages/projects.scss'
 import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
+import { getProject } from "../../../../store/actions/projects"
 
 // react-datepicker custom input
 
@@ -16,14 +19,14 @@ class DateInput extends Component {
   }
 }
 
-class ProjectsItem extends Component {
+class ProjectDetails extends Component {
   constructor(props) {
     super(props)
     props.setTitle('Project item - Pages')
 
     this.state = {
       projectPath: [
-        { text: 'Projects' },
+        { text: 'Projects', url: '/projects' },
         { text: 'Website development', active: true }
       ],
 
@@ -46,7 +49,7 @@ class ProjectsItem extends Component {
         priority: 1,
         tasks: 44,
         completedTasks: 29,
-        imageUrl: `${process.env.PUBLIC_URL}/img/project.png`,
+        imageUrl: `${process.env.PUBLIC_URL}/img/mock/project.png`,
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus.`,
         createdAt: new Date('02/01/2018'),
         lastUpdate: new Date('02/18/2018'),
@@ -108,6 +111,10 @@ class ProjectsItem extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentWillMount() {
+    this.props.getProject(this.props.match.params.id)
+  }
+
   prevent(e) {
     e.preventDefault()
   }
@@ -120,7 +127,6 @@ class ProjectsItem extends Component {
   }
 
   render() {
-
     return (
       <div>
         <Row>
@@ -128,7 +134,7 @@ class ProjectsItem extends Component {
             <h4 className="py-3 mb-4">
               <Breadcrumb className="font-weight-bold m-0" listProps={{ className: 'm-0' }}>
                 {this.state.projectPath.map((item, i) =>
-                  <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text}>{item.text}</Breadcrumb.Item>
+                  <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text} href={item.url}>{item.text}</Breadcrumb.Item>
                 )}
               </Breadcrumb>
             </h4>
@@ -292,4 +298,14 @@ class ProjectsItem extends Component {
   }
 }
 
-export default ProjectsItem
+const mapDispatchToProps = dispatch => {
+  return {
+    getProject: (id) => dispatch(getProject(id))
+  };
+}
+
+const mapStateToProps = state => {
+  return { project: state.projects.project };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProjectDetails))
