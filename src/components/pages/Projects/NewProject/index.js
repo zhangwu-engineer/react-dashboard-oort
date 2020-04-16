@@ -3,7 +3,6 @@ import { Form, Button, Col, Card } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select';
 import moment from 'moment'
-import FileUpload from '../../../../components/forms/FileUpload'
 import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
 
 const USERS_LIST = [
@@ -128,11 +127,6 @@ class NewProject extends Component {
                   <Select isMulti className="react-select" classNamePrefix="react-select"
                     options={APPLICATIONS_LIST}
                     defaultValue={this.state.multiValue} />
-                </Form.Group>
-              </Form.Row>
-              <Form.Row className="mt-3">
-                <Form.Group as={Col} md={12}>
-                  <FileUpload />
                 </Form.Group>
               </Form.Row>
               <Form.Row className="mt-3">

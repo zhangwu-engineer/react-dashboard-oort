@@ -1528,6 +1528,7 @@
     .sidenav-item.open:not(.sidenav-item-closing) > .sidenav-toggle,
     .sidenav-item.active > .sidenav-link {
       color: map-get($colors, active-color);
+      font-weight: $font-weight-bolder;
     }
 
     .sidenav-item.active > .sidenav-link:not(.sidenav-toggle) {
