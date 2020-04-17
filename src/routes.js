@@ -507,9 +507,8 @@ export const routes = [
 
   // Real Pages
   {
-    path: '/signin',
-    component: lazy(() => import('./components/pages/Signin')),
-    layout: LayoutBlank
+    path: '/',
+    component: lazy(() => import('./components/dashboards/Dashboard1'))
   },
   {
     path: '/profile',

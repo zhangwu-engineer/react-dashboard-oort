@@ -1,56 +1,24 @@
-import React, { Component } from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
-import '../../../vendor/styles/pages/authentication.scss'
+import React, { Component } from 'react';
+import { Spinner } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom';
+import SigninForm from './SigninForm';
+import { withOktaAuth } from '@okta/okta-react';
 
-class Signin extends Component {
-  constructor(props) {
-    super(props)
-    props.onSetTitle('Sign in')
-
-    this.state = {
-      credentials: {
-        email: '',
-        password: '',
-        rememberMe: false
-      }
-    }
-  }
-
+export default withOktaAuth(class Signin extends Component {
   render() {
-    return (
-      <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{ backgroundImage: `url('${process.env.PUBLIC_URL}/img/bg/1.jpg')` }}>
-        <div className="ui-bg-overlay bg-dark opacity-25"></div>
-
-        <div className="authentication-inner py-5">
-
-          <Card>
-            <div className="p-4 p-sm-5">
-              {/* Logo */}
-              <div className="d-flex justify-content-center align-items-center pb-2 mb-2">
-                <div className="ui-w-60">
-                  <div className="w-100 position-relative">
-                    <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt="Brand" className="app-brand-logo ui-w-full" />
-                  </div>
-                </div>
-              </div>
-              {/* / Logo */}
-
-              <h5 className="text-center text-muted font-weight-normal mb-4">Login to Your Account</h5>
-
-              {/* Form */}
-              <Form>
-                <div className="d-flex justify-content-center align-items-center m-0">
-                  <Button variant="primary" onClick={this.props.onLogin}>Sign In</Button>
-                </div>
-              </Form>
-              {/* / Form */}
+    if (this.props.authState.isPending) { 
+      return (
+        <div className="layout-inner d-flex justify-content-center align-items-center pb-2 mb-2">
+          <div className="ui-w-60">
+            <div className="w-100 position-relative">
+              <Spinner animation="border" size="ls" variant="primary" />
             </div>
-          </Card>
-
+          </div>
         </div>
-      </div>
-    )
+      );
+    }
+    return this.props.authState.isAuthenticated ?
+      <Redirect to={{ pathname: '/' }}/> :
+      <SigninForm issuer={this.props.issuer} onSetTitle={this.props.setTitle} />;
   }
-}
-
-export default Signin
+});
