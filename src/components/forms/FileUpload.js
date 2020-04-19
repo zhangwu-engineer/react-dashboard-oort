@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Card } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
 
 const humanFileSize = (bytes, si) => {
@@ -75,7 +74,7 @@ const DropzoneContainer = (props) => {
           <div className="d-flex align-items-start align-content-start flex-wrap">
             {props.files.map(file => (
               // File card
-              <div className="card card-condenced mb-3 mr-3" style={{width: '180px'}} key={file.name} onClick={e => e.stopPropagation()}>
+              <div className="card card-condenced mb-3 mr-3" style={{width: '120px'}} key={file.name} onClick={e => e.stopPropagation()}>
                 <div className="card-body">
                   <img className="mb-2" src={file.dataUrl} alt={file.name} style={{width: '100%'}} />
                   <div className="font-weight-semibold text-left text-truncate" title={file.name}>{file.name}</div>
@@ -99,7 +98,6 @@ const DropzoneContainer = (props) => {
 class FileUpload extends Component {
   constructor(props) {
     super(props)
-    props.setTitle('File upload - Forms')
 
     this.onFileDrop = this.onFileDrop.bind(this)
     this.onFileRemove = this.onFileRemove.bind(this)
@@ -125,23 +123,7 @@ class FileUpload extends Component {
 
   render() {
     return (
-      <div>
-        <h4 className="font-weight-bold py-3 mb-4">
-          <span className="text-muted font-weight-light">Forms /</span> File upload
-        </h4>
-
-        <Card>
-          <Card.Header as="h6">react-dropzone</Card.Header>
-          <Card.Body>
-            <div className="alert alert-warning mb-4">
-              <strong>react-dropzone</strong> doesn't perform uploading on the server. You'll need to implement it on your own.
-            </div>
-
-            <DropzoneContainer files={this.state.files} onDrop={this.onFileDrop} onRemove={this.onFileRemove} />
-          </Card.Body>
-        </Card>
-
-      </div>
+      <DropzoneContainer files={this.state.files} onDrop={this.onFileDrop} onRemove={this.onFileRemove} />
     )
   }
 }
