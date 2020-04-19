@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Card, Button, Media, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import * as numeral from 'numeral'
 import '../../../../../vendor/libs/nouislider-react/nouislider-react.scss'
 import '../../../../../vendor/styles/pages/products.scss'
 import { STATUSES } from '../../../../../shared/constants/projects'
@@ -63,7 +64,7 @@ class ProjectsList extends Component {
         classes: 'py-2 align-middle'
       })
     }
-    if (singleProject.riskScore) {
+    if (singleProject.users && singleProject.resources) {
       columns.push({
         text: 'Risk Score',
         dataField: 'riskScore',
@@ -71,7 +72,7 @@ class ProjectsList extends Component {
         classes: 'py-2 align-middle',
         formatter: (cell, row) => {
           return (<React.Fragment>
-            {row.riskScore}%
+            {numeral(row.users/row.resources).format('0,0.0')}%
           </React.Fragment>)
         }
       })

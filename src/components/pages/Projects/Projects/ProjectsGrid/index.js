@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { NavLink } from 'react-router-dom'
+import * as numeral from 'numeral'
 import { Card, ProgressBar, Row, Col, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 import { STATUSES } from '../../../../../shared/constants/projects'
 
@@ -41,7 +42,8 @@ class ProjectsGrid extends Component {
     const statusLabel = project.status ? STATUSES[project.status].label : 'N/A'
     const users = project.users ? project.users : 0
     const resources = project.resources ? project.resources : 0
-    const riskScore = project.riskScore ? project.riskScore : 0
+    const riskScore = (project.users && project.resources) ?
+      numeral(project.users/project.resources).format('0,0.0') : 0
 
     return (
       <Col sm={6} xl={4} key={project.name}>
