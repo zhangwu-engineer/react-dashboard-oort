@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Button, Col, Card } from 'react-bootstrap'
+import { Breadcrumb, Form, Button, Col, Card } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select';
 import moment from 'moment'
@@ -32,7 +32,10 @@ class EditProject extends Component {
     props.setTitle('Edit Project')
 
     this.state = {
-
+      projectPath: [
+        { text: 'Projects', url: '/projects' },
+        { text: 'Edit', active: true }
+      ],
       startDate: new Date(),
       endDate: moment().add(5, 'days').toDate(),
     }
@@ -49,9 +52,15 @@ class EditProject extends Component {
   render() {
     return (
       <div>
-        <h4 className="font-weight-bold py-3 mb-4">
-          <span className="text-muted font-weight-light">Projects /</span> Edit
-        </h4>
+        <Col>
+          <h4 className="py-3 mb-4">
+            <Breadcrumb className="font-weight-bold m-0" listProps={{ className: 'm-0' }}>
+              {this.state.projectPath.map((item, i) =>
+                <Breadcrumb.Item active={(this.state.projectPath.length - 1) === i} key={item.text} href={item.url}>{item.text}</Breadcrumb.Item>
+              )}
+            </Breadcrumb>
+          </h4>
+        </Col>
 
         <Card className="mb-4">
           <Card.Header as="h6">Project Info</Card.Header>
