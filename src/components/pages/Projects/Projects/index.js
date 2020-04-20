@@ -88,7 +88,7 @@ class Projects extends Component {
               <Button variant="default icon-btn md-btn-flat" onClick={() => this.setViewMode('row')} active={this.state.viewMode === 'row'}><i className="ion ion-md-menu"></i></Button>
             </ButtonGroup>
             {/* / View toggle */}
-            <Link to="/new-project">
+            <Link to="/projects/new-project">
               <Button variant="outline-primary" className="mb-3 ml-3">
                   <span className="ion ion-md-add"></span>&nbsp; Create Project
               </Button>
