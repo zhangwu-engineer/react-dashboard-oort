@@ -6,6 +6,7 @@ if [[ ! -z "${CI_DEBUG_TRACE:-}" ]]; then
 fi
 
 docker build\
-  --build-arg REACT_APP_OKTA_ISSUER=${REACT_APP_OKTA_ISSUER}\
-  --build-arg REACT_APP_OKTA_CLIENT_ID=${REACT_APP_OKTA_CLIENT_ID}\
+  --build-arg REACT_APP_OKTA_ISSUER\
+  --build-arg REACT_APP_OKTA_CLIENT_ID\
+  --build-arg REACT_APP_ACTIVITY_LOG_API_URL\
   "$@"
