@@ -537,5 +537,13 @@ export const routes = [
   {
     path: '/activity-logs',
     component: lazy(() => import('./components/pages/ActivityLogs'))
+  },
+  {
+    path: '/gateways',
+    component: lazy(() => import('./components/pages/Gateways'))
+  },
+  {
+    path: '/gateway',
+    component: lazy(() => import('./components/pages/Gateway'))
   }
 ]
