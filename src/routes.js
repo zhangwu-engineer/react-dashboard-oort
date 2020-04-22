@@ -523,16 +523,12 @@ export const routes = [
     component: lazy(() => import('./components/pages/Projects/NewProject')),
   },
   {
-    path: '/projects/:id',
+    path: '/projects/:id/view',
     component: lazy(() => import('./components/pages/Projects/ProjectDetails')),
   },
   {
     path: '/projects/:id/edit',
     component: lazy(() => import('./components/pages/Projects/EditProject')),
-  },
-  {
-    path: '/new-project',
-    component: lazy(() => import('./components/pages/Projects/NewProject')),
   },
   {
     path: '/activity-logs',
