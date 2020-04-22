@@ -52,13 +52,13 @@ class ProjectsGrid extends Component {
                 <img src={imageUrl} alt="Project Logo" className="ui-h-40 ui-bordered mr-3" />
               </div>
               <div>
-                <a href={`/projects/${project.id}`} className="text-body text-big font-weight-semibold">{project.name}</a>
+                <a href={`/projects/${project.id}/view`} className="text-body text-big font-weight-semibold">{project.name}</a>
                 <Badge className="align-text-bottom ml-2" variant={iconName}>{statusLabel}</Badge>
                 <div className="text-muted small mt-1">{users} users, {resources} resources</div>
               </div>
             </div>
             <DropdownButton variant="default icon-btn borderless rounded-pill md-btn-flat hide-arrow" size="sm" title={<i className="ion ion-ios-more"></i>} alignRight={!isRTL}>
-              <Dropdown.Item as={NavLink} to={`/projects/${project.id}`}>View</Dropdown.Item>
+              <Dropdown.Item as={NavLink} to={`/projects/${project.id}/view`}>View</Dropdown.Item>
               <Dropdown.Item as={NavLink} to={`/projects/${project.id}/edit`}>Edit</Dropdown.Item>
               <Dropdown.Item onClick={() => this.handleDeleteProject(project.id)}>Delete</Dropdown.Item>
             </DropdownButton>
