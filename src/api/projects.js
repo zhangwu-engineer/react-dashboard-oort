@@ -6,9 +6,9 @@ export const loadProjects = async () => {
   const accessToken = JSON.parse(oktaTokenStorage) && JSON.parse(oktaTokenStorage).accessToken.accessToken
   const response = await axios({
     method: 'get',
-    url: config.PROJECTS_API_URL,
+    url: `${config.CTRL_API_URL}/projects`,
     headers: {
-      Authorization: `Basic ${accessToken}`
+      Authorization: `Bearer ${accessToken}`
     }
   })
   return response.data
@@ -19,9 +19,9 @@ export const getProject = async (id) => {
   const accessToken = JSON.parse(oktaTokenStorage) && JSON.parse(oktaTokenStorage).accessToken.accessToken
   const response = await axios({
     method: 'get',
-    url: `${config.PROJECTS_API_URL}/id`,
+    url: `${config.CTRL_API_URL}/projects/${id}`,
     headers: {
-      Authorization: `Basic ${accessToken}`
+      Authorization: `Bearer ${accessToken}`
     }
   })
   return response.data
