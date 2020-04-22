@@ -519,6 +519,10 @@ export const routes = [
     component: lazy(() => import('./components/pages/Projects/Projects/index')),
   },
   {
+    path: '/projects/new-project',
+    component: lazy(() => import('./components/pages/Projects/NewProject')),
+  },
+  {
     path: '/projects/:id',
     component: lazy(() => import('./components/pages/Projects/ProjectDetails')),
   },
