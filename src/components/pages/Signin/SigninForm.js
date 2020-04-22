@@ -29,9 +29,12 @@ class SigninForm extends Component {
       username: this.state.email,
       password: this.state.password
     })
-    .then(res => this.setState({
-      sessionToken: res.sessionToken
-    }))
+    .then(res => {
+      this.setState({
+        sessionToken: res.sessionToken
+      })
+      localStorage.setItem('sessionToken', res.sessionToken)
+    })
     .catch(err => console.log('Found an error', err));
   }
 
