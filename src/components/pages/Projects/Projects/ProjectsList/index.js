@@ -41,7 +41,7 @@ class ProjectsList extends Component {
           <Media className="align-items-center">
             <img className="d-block ui-w-40" src={imageUrl} alt="" />
             {/* Generate link to project here */}
-            <a href={`/projects/${row.id}`} className="media-body d-block text-body ml-3">{row.name}</a>
+            <a href={`/projects/${row.id}/view`} className="media-body d-block text-body ml-3">{row.name}</a>
           </Media>
         )
       }
@@ -118,7 +118,7 @@ class ProjectsList extends Component {
       classes: 'py-2 align-middle text-nowrap',
       formatter: (cell, row) => (<React.Fragment>
         <OverlayTrigger overlay={<Tooltip>Show</Tooltip>}>
-          <Button variant="default btn-xs icon-btn md-btn-flat" as={NavLink} to={`/projects/${row.id}`}>
+          <Button variant="default btn-xs icon-btn md-btn-flat" as={NavLink} to={`/projects/${row.id}/view`}>
             <i className="ion ion-md-eye"></i>
           </Button>
         </OverlayTrigger>
