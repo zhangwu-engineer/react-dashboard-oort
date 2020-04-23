@@ -51,7 +51,7 @@
 
 .staging-env: &staging-env
   url: http://staging.$KUBE_INGRESS_BASE_DOMAIN
-  name: staging
+  name: $OORT_STAGING_ENVIRONMENT
 
 variables:
   GIT_SUBMODULE_STRATEGY: normal
