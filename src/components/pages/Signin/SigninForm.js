@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
+import { Card, Button, Spinner } from 'react-bootstrap'
 import '../../../vendor/styles/pages/authentication.scss'
 import OktaAuth from '@okta/okta-auth-js';
 import { withOktaAuth } from '@okta/okta-react';
+import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 class SigninForm extends Component {
   constructor(props) {
@@ -10,34 +11,14 @@ class SigninForm extends Component {
     props.onSetTitle('Sign in')
 
     this.state = {
-      email: '',
-      password: '',
     }
 
     this.oktaAuth = new OktaAuth({ issuer: props.issuer });
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onValueChange = this.onValueChange.bind(this);
-  }
-
-  onValueChange(field, e) {
-    this.setState({ [field]: e.target.value });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.oktaAuth.signIn({
-      username: this.state.email,
-      password: this.state.password
-    })
-    .then(res => this.setState({
-        sessionToken: res.sessionToken
-    }))
-    .catch(err => console.log('Found an error', err));
   }
 
   render() {
     if (this.state.sessionToken) {
-      this.props.authService.redirect({sessionToken: this.state.sessionToken});
+      this.props.authService.redirect({ sessionToken: this.state.sessionToken });
       return null;
     }
 
@@ -62,19 +43,86 @@ class SigninForm extends Component {
               <h5 className="text-center text-muted font-weight-normal mb-4">Login to Your Account</h5>
 
               {/* Form */}
-                <Form.Group>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control value={this.state.email} onChange={e => this.onValueChange('email', e)} />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" value={this.state.password} onChange={e => this.onValueChange('password', e)} />
-                </Form.Group>
-                <Form>
-                  <div className="d-flex justify-content-center align-items-center m-0">
-                    <Button variant="primary" onClick={this.handleSubmit}>Sign In</Button>
-                  </div>
-                </Form>
+              <Formik
+                initialValues={{ email: "", password: "" }}
+                validate={values => {
+                  const emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+                  let errors = {};
+                  if (values.email === "") {
+                    errors.email = "Email is required";
+                  } else if (!emailTest.test(values.email)) {
+                    errors.email = "Invalid email address format";
+                  }
+                  if (values.password === "") {
+                    errors.password = "Password is required";
+                  } else if (values.password.length < 5) {
+                    errors.password = "Password must be 5 characters at minimum";
+                  }
+                  return errors;
+                }}
+                onSubmit={(values, actions) => {
+                  this.oktaAuth.signIn({
+                    username: values.email,
+                    password: values.password
+                  })
+                  .then(res => this.setState({
+                    sessionToken: res.sessionToken
+                  }))
+                  .catch(err => actions.setFieldError('general', err.message))
+                  .finally(() => actions.setSubmitting(false))
+                }}
+              >
+                {({ touched, errors, isSubmitting }) => (
+                  <FormikForm>
+                    <div className="form-group">
+                      <label htmlFor="email">Email</label>
+                      <Field
+                        type="email"
+                        name="email"
+                        placeholder="Enter email"
+                        className={`form-control ${
+                          touched.email && errors.email ? "is-invalid" : ""
+                        }`}
+                      />
+                      <ErrorMessage
+                        component="div"
+                        name="email"
+                        className="invalid-feedback"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <Field
+                        type="password"
+                        name="password"
+                        placeholder="Enter password"
+                        className={`form-control ${
+                          touched.password && errors.password ? "is-invalid" : ""
+                        }`}
+                      />
+                      <ErrorMessage
+                        component="div"
+                        name="password"
+                        className="invalid-feedback"
+                      />
+                    </div>
+                    {errors.general &&
+                      <div className="text-danger">{errors.general}</div>
+                    }
+                    <Button
+                      type="submit"
+                      className="btn btn-primary btn-block mt-4"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ?
+                        <Spinner as="span" animation="border" role="status" aria-hidden="true" />
+                        : "Sign in"
+                      }
+                    </Button>
+                  </FormikForm>
+                )}
+              </Formik>
               {/* / Form */}
             </div>
           </Card>
