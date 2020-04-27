@@ -1,7 +1,7 @@
 [
   {
-    "name": "Front-end Development",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
+    "name": "Zender Company",
+    "description": "Admin access for Zender Co",
     "status": 1,
     "users": 25,
     "resources": 2,
@@ -9,17 +9,17 @@
     "lastActivity": "2018-07-04"
   },
   {
-    "name": "Oort Admin Project",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 3,
+    "name": "Example Inc",
+    "description": "Read-only access to Example Inc",
+    "status": 1,
     "users": 48,
     "resources": 6,
     "created": "2018-01-04",
     "lastActivity": "2018-03-04"
   },
   {
-    "name": "API Development",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
+    "name": "Alpha Processing",
+    "description": "Database Access for Alpha Processing",
     "status": 2,
     "users": 5,
     "resources": 5,
@@ -27,17 +27,17 @@
     "lastActivity": "2018-12-04"
   },
   {
-    "name": "PlayStation 4",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 1,
+    "name": "Gamma Networks",
+    "description": "Network admin access",
+    "status": 3,
     "users": 51,
     "resources": 2,
     "created": "2018-05-04",
     "lastActivity": "2018-09-04"
   },
   {
-    "name": "PlayStation 4 1TB (Jet Black)",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
+    "name": "Zeta Systems",
+    "description": "Read-only access for Zeta Sys",
     "status": 1,
     "users": 25,
     "resources": 2,
@@ -45,66 +45,12 @@
     "lastActivity": "2018-03-04"
   },
   {
-    "name": "Devops Project",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 2,
+    "name": "Mu Platform",
+    "description": "Mu remote access",
+    "status": 1,
     "users": 35,
     "resources": 1,
     "created": "2018-01-04",
     "lastActivity": "2018-03-04"
-  },
-  {
-    "name": "PlayStation 4 2TB",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 2,
-    "users": 25,
-    "resources": 3,
-    "created": "2018-08-04",
-    "lastActivity": "2018-09-04"
-  },
-  {
-    "name": "Oort Front-end Development",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 3,
-    "users": 5,
-    "resources": 2,
-    "created": "2018-11-04",
-    "lastActivity": "2018-12-04"
-  },
-  {
-    "name": "Oort Back-end Development",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 3,
-    "users": 35,
-    "resources": 4,
-    "created": "2018-01-04",
-    "lastActivity": "2018-03-04"
-  },
-  {
-    "name": "PlayStation 3",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 1,
-    "users": 5,
-    "resources": 2,
-    "created": "2018-01-04",
-    "lastActivity": "2018-02-04"
-  },
-  {
-    "name": "Gaming Platform",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 2,
-    "users": 15,
-    "resources": 2,
-    "created": "2018-03-04",
-    "lastActivity": "2018-04-04"
-  },
-  {
-    "name": "Asset Management",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac malesuada nisl. Maecenas quis ultrices tellus.",
-    "status": 3,
-    "users": 2,
-    "resources": 2,
-    "created": "2018-02-04",
-    "lastActivity": "2018-06-14"
   }
 ]

@@ -1,10 +1,10 @@
 export const STATUSES = {
   1: {
-    label: 'Completed',
+    label: 'Active',
     icon: 'success'
   }, 
   2: {
-    label: 'Delayed',
+    label: 'Suspended',
     icon: 'danger'
   },
   3: {
