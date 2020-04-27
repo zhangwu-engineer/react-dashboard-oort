@@ -109,7 +109,7 @@ class SigninForm extends Component {
                       />
                     </Form.Group>
                     {errors.general &&
-                      <div className="text-danger">{errors.general}</div>
+                      <div className="d-block invalid-feedback">{errors.general}</div>
                     }
                     <Button
                       type="submit"
