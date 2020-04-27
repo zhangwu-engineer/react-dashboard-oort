@@ -3,6 +3,7 @@ import { Card, Button, Spinner } from 'react-bootstrap'
 import '../../../vendor/styles/pages/authentication.scss'
 import OktaAuth from '@okta/okta-auth-js';
 import { withOktaAuth } from '@okta/okta-react';
+import { Form } from 'react-bootstrap'
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 class SigninForm extends Component {
@@ -74,8 +75,8 @@ class SigninForm extends Component {
               >
                 {({ touched, errors, isSubmitting }) => (
                   <FormikForm>
-                    <div className="form-group">
-                      <label htmlFor="email">Email</label>
+                    <Form.Group>
+                      <Form.Label>Email</Form.Label>
                       <Field
                         type="email"
                         name="email"
@@ -89,10 +90,10 @@ class SigninForm extends Component {
                         name="email"
                         className="invalid-feedback"
                       />
-                    </div>
+                    </Form.Group>
 
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
+                    <Form.Group>
+                      <Form.Label>Password</Form.Label>
                       <Field
                         type="password"
                         name="password"
@@ -106,9 +107,9 @@ class SigninForm extends Component {
                         name="password"
                         className="invalid-feedback"
                       />
-                    </div>
+                    </Form.Group>
                     {errors.general &&
-                      <div className="text-danger">{errors.general}</div>
+                      <div className="d-block invalid-feedback">{errors.general}</div>
                     }
                     <Button
                       type="submit"
