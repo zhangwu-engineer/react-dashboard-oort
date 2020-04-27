@@ -37,7 +37,7 @@ class ProjectsGrid extends Component {
 
   renderSingleProjectCard(project) {
     const isRTL = document.documentElement.getAttribute('dir') === 'rtl'
-    const imageUrl = project.imageUrl ? project.imageUrl : `https://ui-avatars.com/api/?name%3DZender%26rounded%3Dtrue&sa=D&ust=1588004282148000&usg=AFQjCNHIjnwglG3HKwTg02tp6Kphq6BGBA`
+    const imageUrl = project.imageUrl ? project.imageUrl : `https://ui-avatars.com/api/?name=${project.name}`
     const iconName = project.status ? `${STATUSES[project.status].icon}` : 'default'
     const statusLabel = project.status ? STATUSES[project.status].label : 'N/A'
     const users = project.users ? project.users : 0
