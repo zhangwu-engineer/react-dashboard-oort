@@ -41,12 +41,27 @@ class NewProject extends Component {
       endDate: moment().add(5, 'days').toDate(),
     }
 
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeStart = this.handleChangeStart.bind(this)
+    this.handleChangeEnd = this.handleChangeEnd.bind(this)
+
+  }
+  
+  handleChangeStart(startDate) {
+    this.setDates({ startDate })
   }
 
-  handleChange(field, value) {
+  handleChangeEnd(endDate) {
+    this.setDates({ endDate })
+  }
+
+  setDates({ startDate = this.state.startDate, endDate = this.state.endDate }) {
+    if (moment(startDate).isAfter(endDate)) {
+      endDate = startDate
+    }
+
     this.setState({
-      [field]: value
+      startDate,
+      endDate
     })
   }
 
@@ -167,7 +182,7 @@ class NewProject extends Component {
                       <DatePicker className="form-control"
                         calendarClassName = "react-datepicker--with-time"
                         selected={this.state.startDate}
-                        onChange={e => this.handleChange('startDate', e)}
+                        onChange={this.handleChangeStart}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
@@ -181,7 +196,7 @@ class NewProject extends Component {
                       <DatePicker className="form-control"
                         calendarClassName = "react-datepicker--with-time"
                         selected={this.state.endDate}
-                        onChange={e => this.handleChange('endDate', e)}
+                        onChange={this.handleChangeEnd}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
