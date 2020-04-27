@@ -71,7 +71,8 @@ class NewProject extends Component {
               initialValues={{
                 name: "",
                 owner: "",
-                status: ""
+                status: "",
+                description: ""
               }}
               validate={values => {
                 let errors = {};
@@ -131,7 +132,12 @@ class NewProject extends Component {
                   <Form.Row>
                     <Form.Group as={Col} md={12}>
                       <Form.Label>Description</Form.Label>
-                      <Form.Control as="textarea" placeholder="Project description" />
+                      <Field
+                        as="textarea"
+                        name="description"
+                        placeholder="Project Owner"
+                        className="form-control"
+                      />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
