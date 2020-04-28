@@ -10,4 +10,5 @@ docker build\
   --build-arg REACT_APP_OKTA_CLIENT_ID\
   --build-arg REACT_APP_ACTIVITY_LOG_API_URL\
   --build-arg REACT_APP_CTRL_API_URL\
+  --build-arg REACT_APP_OORT_TOKEN_DOMAIN\
   "$@"
