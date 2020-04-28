@@ -205,10 +205,6 @@ class ProjectDetails extends Component {
                       </Media>
                   )}
               </Card.Body>
-              <Card.Footer className="py-3">
-                <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add user</Button>&nbsp;
-                <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
-              </Card.Footer>
             </Card>
             <Card className="mb-4">
               <Card.Header as="h6">Resources</Card.Header>
@@ -223,10 +219,6 @@ class ProjectDetails extends Component {
                       </Media>
                   )}
               </Card.Body>
-              <Card.Footer className="py-3">
-                <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add Application</Button>&nbsp;
-                <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
-              </Card.Footer>
             </Card>
             <Card className="mb-4">
               <Card.Header as="h6">Activity </Card.Header>
