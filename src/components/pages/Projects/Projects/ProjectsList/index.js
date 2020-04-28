@@ -36,7 +36,7 @@ class ProjectsList extends Component {
       classes: 'py-2 align-middle',
       headerStyle: { minWidth: '300px' },
       formatter: (cell, row) => {
-        const imageUrl = row.imageUrl ? row.imageUrl : `${process.env.PUBLIC_URL}/img/mock/cola.png`
+        const imageUrl = row.imageUrl ? row.imageUrl : `https://ui-avatars.com/api/?name=${row.name}`
         return (
           <Media className="align-items-center">
             <img className="d-block ui-w-40" src={imageUrl} alt="" />
