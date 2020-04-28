@@ -27,7 +27,7 @@ class ProjectDetails extends Component {
     this.state = {
       projectPath: [
         { text: 'Projects', url: '/projects' },
-        { text: 'Website development', active: true }
+        { text: 'Example Inc', active: true }
       ],
 
       statuses: {
@@ -44,16 +44,16 @@ class ProjectDetails extends Component {
       },
 
       projectData: {
-        title: 'Website development',
+        name: 'Example Inc',
         status: 1,
         priority: 1,
         tasks: 44,
         completedTasks: 29,
         imageUrl: `${process.env.PUBLIC_URL}/img/mock/project.png`,
-        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus.`,
-        createdAt: new Date('02/01/2018'),
-        lastUpdate: new Date('02/18/2018'),
-        startDate: '03/12/2018 08:00 am',
+        description: `Read-only access to Example Inc`,
+        createdAt: new Date('01/04/2018'),
+        lastUpdate: new Date('03/04/2018'),
+        startDate: '02/12/2018 08:00 am',
         endDate: '04/12/2018 09:00 pm',
 
         createdBy: {
@@ -153,13 +153,13 @@ class ProjectDetails extends Component {
             <Card className="mb-4">
               <Card.Header as="h6">Project details</Card.Header>
               <ListGroup variant="flush">
-                <img src={this.state.projectData.imageUrl} alt="Project Logo" style={{width: '100%'}} />
+                <img src={`https://ui-avatars.com/api/?name=${this.state.projectData.name}`} alt="Project Logo" className="py-3 mx-auto" />
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div>{this.state.projectData.description}</div>
                 </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Name</div>
-                  <div><a href="#d" onClick={this.prevent}>{this.state.projectData.title}</a></div>
+                  <div><a href="#d" onClick={this.prevent}>{this.state.projectData.name}</a></div>
                 </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <div className="text-muted">Owner</div>
