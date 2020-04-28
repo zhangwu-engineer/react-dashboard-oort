@@ -27,7 +27,7 @@ class ProjectDetails extends Component {
     this.state = {
       projectPath: [
         { text: 'Projects', url: '/projects' },
-        { text: 'Website development', active: true }
+        { text: 'Example Inc', active: true }
       ],
 
       statuses: {
@@ -44,13 +44,13 @@ class ProjectDetails extends Component {
       },
 
       projectData: {
-        title: 'Website development',
+        title: 'Example Inc',
         status: 1,
         priority: 1,
         tasks: 44,
         completedTasks: 29,
         imageUrl: `${process.env.PUBLIC_URL}/img/mock/project.png`,
-        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus.`,
+        description: `Read-only access to Example Inc`,
         createdAt: new Date('02/01/2018'),
         lastUpdate: new Date('02/18/2018'),
         startDate: '03/12/2018 08:00 am',
@@ -73,10 +73,8 @@ class ProjectDetails extends Component {
         ],
 
         resources: [
-          { avatar: 'uikit/adidas.jpg', name: 'Application 1' },
-          { avatar: 'uikit/headphones.jpg', name: 'Application 2' },
-          { avatar: 'uikit/iwatch.jpg', name: 'Application 3' },
-          { avatar: 'uikit/ps4.jpg', name: 'Application 4' }
+          { avatar: 'uikit/adidas.jpg', name: 'Company Directory' },
+          { avatar: 'uikit/headphones.jpg', name: 'HR Management System' },
         ],
       }
     }
@@ -217,7 +215,7 @@ class ProjectDetails extends Component {
               <Card.Body>
                   {this.state.projectData.resources.map((resource, index) =>
                       <Media className="align-items-center pb-3" key={index}>
-                        <img src={`${process.env.PUBLIC_URL}/img/${resource.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
+                        <img src={`https://ui-avatars.com/api/?name=${resource.name}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
                         <Media.Body className="px-3 layout-wrapper">
                           <a href="#d" onClick={this.prevent} className="text-body layout-content">{resource.name}</a>
                         </Media.Body>
