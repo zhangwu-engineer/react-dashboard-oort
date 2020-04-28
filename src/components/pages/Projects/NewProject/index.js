@@ -37,12 +37,18 @@ class NewProject extends Component {
         { text: 'Projects', url: '/projects' },
         { text: 'New', active: true }
       ],
-      startDate: new Date(),
-      endDate: moment().add(5, 'days').toDate(),
+      projectData: {
+        users: [],
+        apps: [],
+        startDate: new Date(),
+        endDate: moment().add(5, 'days').toDate(),
+      }
     }
 
     this.handleChangeStart = this.handleChangeStart.bind(this)
     this.handleChangeEnd = this.handleChangeEnd.bind(this)
+    this.handleChangeUserOptions = this.handleChangeUserOptions.bind(this)
+    this.handleChangeAppOptions = this.handleChangeAppOptions.bind(this)
 
   }
   
@@ -54,14 +60,29 @@ class NewProject extends Component {
     this.setDates({ endDate })
   }
 
-  setDates({ startDate = this.state.startDate, endDate = this.state.endDate }) {
+  setDates({ startDate = this.state.projectData.startDate, endDate = this.state.projectData.endDate }) {
     if (moment(startDate).isAfter(endDate)) {
       endDate = startDate
     }
 
-    this.setState({
-      startDate,
-      endDate
+    this.setState(state => {
+      state.projectData.startDate = startDate
+      state.projectData.endDate = endDate
+      return state
+    })
+  }
+
+  handleChangeUserOptions(users) {
+    this.setState(state => {
+      state.projectData.users = users
+      return state
+    })
+  }
+
+  handleChangeAppOptions(apps) {
+    this.setState(state => {
+      state.projectData.apps = apps
+      return state
     })
   }
 
@@ -107,7 +128,7 @@ class NewProject extends Component {
                 return errors;
               }}
               onSubmit={(values, actions) => {
-                console.log('form submitted!', values)
+                console.log('form submitted!', { ...values, ...this.state.projectData})
               }}
             >
               {({ touched, errors, isSubmitting }) => (
@@ -181,7 +202,7 @@ class NewProject extends Component {
                       <Form.Label>Start Date</Form.Label>
                       <DatePicker className="form-control"
                         calendarClassName = "react-datepicker--with-time"
-                        selected={this.state.startDate}
+                        selected={this.state.projectData.startDate}
                         onChange={this.handleChangeStart}
                         showTimeSelect
                         timeFormat="HH:mm"
@@ -195,7 +216,7 @@ class NewProject extends Component {
                       <Form.Label>End date</Form.Label>
                       <DatePicker className="form-control"
                         calendarClassName = "react-datepicker--with-time"
-                        selected={this.state.endDate}
+                        selected={this.state.projectData.endDate}
                         onChange={this.handleChangeEnd}
                         showTimeSelect
                         timeFormat="HH:mm"
@@ -211,7 +232,9 @@ class NewProject extends Component {
                       <Form.Label>Users</Form.Label>
                       <Select isMulti className="react-select" classNamePrefix="react-select"
                         options={USERS_LIST}
-                        defaultValue={this.state.multiValue} />
+                        defaultValue={this.state.projectData.users}
+                        onChange={this.handleChangeUserOptions}
+                      />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
@@ -219,7 +242,9 @@ class NewProject extends Component {
                       <Form.Label>Applications</Form.Label>
                       <Select isMulti className="react-select" classNamePrefix="react-select"
                         options={APPLICATIONS_LIST}
-                        defaultValue={this.state.multiValue} />
+                        defaultValue={this.state.projectData.apps}
+                        onChange={this.handleChangeAppOptions}
+                      />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row className="mt-3">
