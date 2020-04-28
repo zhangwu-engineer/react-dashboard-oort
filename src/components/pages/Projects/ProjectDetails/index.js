@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import '../../../../vendor/styles/pages/projects.scss'
 import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
 import { getProject } from "../../../../store/actions/projects"
-
+import ActivityLogs from "../../ActivityLogs"
 // react-datepicker custom input
 
 class DateInput extends Component {
@@ -78,33 +78,6 @@ class ProjectDetails extends Component {
           { avatar: 'uikit/iwatch.jpg', name: 'Application 3' },
           { avatar: 'uikit/ps4.jpg', name: 'Application 4' }
         ],
-
-        activities: [{
-          type: 'new_task',
-          date: '2 hours',
-          user: { avatar: '1-small.png', name: 'Mike Greene' },
-          data: { taskTitle: 'Create invoice template' }
-        }, {
-          type: 'completed_task',
-          date: '2 hours',
-          user: { avatar: '4-small.png', name: 'Kenneth Frazier' },
-          data: { taskTitle: 'Google AdWords campain graphics' }
-        }, {
-          type: 'pushed_commit',
-          date: '2 hours',
-          user: { avatar: '4-small.png', name: 'Kenneth Frazier' },
-          data: { commitId: 950455 }
-        }, {
-          type: 'new_task',
-          date: '2 hours',
-          user: { avatar: '5-small.png', name: 'Nellie Maxwell' },
-          data: { taskTitle: 'Edit the draft for the icons' }
-        }, {
-          type: 'new_participant',
-          date: '2 hours',
-          user: { avatar: '1-small.png', name: 'Mike Greene' },
-          data: { userName: 'Nellie Maxwell' }
-        }]
       }
     }
 
@@ -260,26 +233,7 @@ class ProjectDetails extends Component {
             <Card className="mb-4">
               <Card.Header as="h6">Activity </Card.Header>
               <Card.Body>
-                {this.state.projectData.activities.map(activity =>
-                  <Media key={`${activity.type}${activity.date}${activity.user.name}`} className="pb-1 mb-3">
-                    <div className="ui-feed-icon-container">
-                      {activity.type === 'new_task' && <span className="ui-icon ui-feed-icon ion ion-md-add bg-primary text-white" />}
-                      {activity.type === 'pushed_commit' && <span className="ui-icon ui-feed-icon ion ion-md-code bg-warning text-body" />}
-                      {activity.type === 'completed_task' && <span className="ui-icon ui-feed-icon ion ion-md-checkmark bg-success text-white" />}
-                      {activity.type === 'new_participant' && <span className="ui-icon ui-feed-icon ion ion-md-contact bg-info text-white" />}
-
-                      <img src={`${process.env.PUBLIC_URL}/img/avatars/${activity.user.avatar}`} className="ui-w-40 rounded-circle" alt="User" />
-                    </div>
-                    <Media.Body className="align-self-center ml-3">
-                      {activity.type === 'new_task' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> added new task <strong>{activity.data.taskTitle}</strong></div>}
-                      {activity.type === 'pushed_commit' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> pushed commit <strong>#{activity.data.commitId}</strong></div>}
-                      {activity.type === 'completed_task' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> completed task <strong>{activity.data.taskTitle}</strong></div>}
-                      {activity.type === 'new_participant' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> assigned new participant <a href="#d" onClick={this.prevent}><strong>{activity.data.userName}</strong></a></div>}
-
-                      <div className="text-muted small">{activity.date} ago</div>
-                    </Media.Body>
-                  </Media>
-                )}
+                <ActivityLogs setTitle={() => {}} />
               </Card.Body>
             </Card>
           </Col>
