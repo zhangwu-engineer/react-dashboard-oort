@@ -107,7 +107,7 @@ export default withRouter(class AppWithRouterAccess extends Component {
               if (props.authState.isAuthenticated) {
                 // Update the access token cookie whenever navigating to a page while authorized
                 // This token is used by the dataplane to identify the user
-                document.cookie = `okta_token=${props.authState.accessToken}; domain=${config.OORT_TOKEN_DOMAIN}`
+                document.cookie = `oort_token=${props.authState.accessToken}; domain=${config.OORT_TOKEN_DOMAIN}`
               }
 
               // Scroll page to top on route render
