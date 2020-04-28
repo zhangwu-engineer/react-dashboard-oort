@@ -218,81 +218,70 @@ class ProjectDetails extends Component {
 
           </Col>
           <Col>
-            <Row>
-              <Col md={12} xl={6}>
-                <Card className="mb-4">
-                  <Card.Header as="h6">Users</Card.Header>
-                  <Card.Body>
-                      {this.state.projectData.team.map((member, index) =>
-                          <Media className="align-items-center pb-3" key={index}>
-                            <img src={`${process.env.PUBLIC_URL}/img/avatars/${member.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
-                            <Media.Body className="px-3 layout-wrapper">
-                              <a href="#d" onClick={this.prevent} className="text-body layout-content">{member.name}</a>
-                              <div className="layout-content">
-                                <Badge key={member} variant="outline-info" className="ui-w-fit mt-1">{member.role}</Badge>
-                              </div>
-                            </Media.Body>
-                            <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
-                          </Media>
-                      )}
-                  </Card.Body>
-                  <Card.Footer className="py-3">
-                    <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add user</Button>&nbsp;
-                    <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
-                  </Card.Footer>
-                </Card>
-              </Col>
-              <Col md={12} xl={6}>
-                <Card className="mb-4">
-                  <Card.Header as="h6">Resources</Card.Header>
-                  <Card.Body>
-                      {this.state.projectData.resources.map((resource, index) =>
-                          <Media className="align-items-center pb-3" key={index}>
-                            <img src={`${process.env.PUBLIC_URL}/img/${resource.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
-                            <Media.Body className="px-3 layout-wrapper">
-                              <a href="#d" onClick={this.prevent} className="text-body layout-content">{resource.name}</a>
-                            </Media.Body>
-                            <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
-                          </Media>
-                      )}
-                  </Card.Body>
-                  <Card.Footer className="py-3">
-                    <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add Application</Button>&nbsp;
-                    <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
-                  </Card.Footer>
-                </Card>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Card className="mb-4">
-                  <Card.Header as="h6">Activity </Card.Header>
-                  <Card.Body>
-                    {this.state.projectData.activities.map(activity =>
-                      <Media key={`${activity.type}${activity.date}${activity.user.name}`} className="pb-1 mb-3">
-                        <div className="ui-feed-icon-container">
-                          {activity.type === 'new_task' && <span className="ui-icon ui-feed-icon ion ion-md-add bg-primary text-white" />}
-                          {activity.type === 'pushed_commit' && <span className="ui-icon ui-feed-icon ion ion-md-code bg-warning text-body" />}
-                          {activity.type === 'completed_task' && <span className="ui-icon ui-feed-icon ion ion-md-checkmark bg-success text-white" />}
-                          {activity.type === 'new_participant' && <span className="ui-icon ui-feed-icon ion ion-md-contact bg-info text-white" />}
-
-                          <img src={`${process.env.PUBLIC_URL}/img/avatars/${activity.user.avatar}`} className="ui-w-40 rounded-circle" alt="User" />
-                        </div>
-                        <Media.Body className="align-self-center ml-3">
-                          {activity.type === 'new_task' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> added new task <strong>{activity.data.taskTitle}</strong></div>}
-                          {activity.type === 'pushed_commit' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> pushed commit <strong>#{activity.data.commitId}</strong></div>}
-                          {activity.type === 'completed_task' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> completed task <strong>{activity.data.taskTitle}</strong></div>}
-                          {activity.type === 'new_participant' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> assigned new participant <a href="#d" onClick={this.prevent}><strong>{activity.data.userName}</strong></a></div>}
-
-                          <div className="text-muted small">{activity.date} ago</div>
+            <Card className="mb-4">
+              <Card.Header as="h6">Users</Card.Header>
+              <Card.Body>
+                  {this.state.projectData.team.map((member, index) =>
+                      <Media className="align-items-center pb-3" key={index}>
+                        <img src={`${process.env.PUBLIC_URL}/img/avatars/${member.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
+                        <Media.Body className="px-3 layout-wrapper">
+                          <a href="#d" onClick={this.prevent} className="text-body layout-content">{member.name}</a>
+                          <div className="layout-content">
+                            <Badge key={member} variant="outline-info" className="ui-w-fit mt-1">{member.role}</Badge>
+                          </div>
                         </Media.Body>
+                        <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
                       </Media>
-                    )}
+                  )}
+              </Card.Body>
+              <Card.Footer className="py-3">
+                <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add user</Button>&nbsp;
+                <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
+              </Card.Footer>
+            </Card>
+            <Card className="mb-4">
+              <Card.Header as="h6">Resources</Card.Header>
+              <Card.Body>
+                  {this.state.projectData.resources.map((resource, index) =>
+                      <Media className="align-items-center pb-3" key={index}>
+                        <img src={`${process.env.PUBLIC_URL}/img/${resource.avatar}`} className="d-block ui-w-40 rounded-circle" alt="Member" />
+                        <Media.Body className="px-3 layout-wrapper">
+                          <a href="#d" onClick={this.prevent} className="text-body layout-content">{resource.name}</a>
+                        </Media.Body>
+                        <a href="#d" onClick={this.prevent} className="d-block text-light text-large font-weight-light">&times;</a>
+                      </Media>
+                  )}
+              </Card.Body>
+              <Card.Footer className="py-3">
+                <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add Application</Button>&nbsp;
+                <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
+              </Card.Footer>
+            </Card>
+            <Card className="mb-4">
+              <Card.Header as="h6">Activity </Card.Header>
+              <Card.Body>
+                {this.state.projectData.activities.map(activity =>
+                  <Media key={`${activity.type}${activity.date}${activity.user.name}`} className="pb-1 mb-3">
+                    <div className="ui-feed-icon-container">
+                      {activity.type === 'new_task' && <span className="ui-icon ui-feed-icon ion ion-md-add bg-primary text-white" />}
+                      {activity.type === 'pushed_commit' && <span className="ui-icon ui-feed-icon ion ion-md-code bg-warning text-body" />}
+                      {activity.type === 'completed_task' && <span className="ui-icon ui-feed-icon ion ion-md-checkmark bg-success text-white" />}
+                      {activity.type === 'new_participant' && <span className="ui-icon ui-feed-icon ion ion-md-contact bg-info text-white" />}
 
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
+                      <img src={`${process.env.PUBLIC_URL}/img/avatars/${activity.user.avatar}`} className="ui-w-40 rounded-circle" alt="User" />
+                    </div>
+                    <Media.Body className="align-self-center ml-3">
+                      {activity.type === 'new_task' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> added new task <strong>{activity.data.taskTitle}</strong></div>}
+                      {activity.type === 'pushed_commit' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> pushed commit <strong>#{activity.data.commitId}</strong></div>}
+                      {activity.type === 'completed_task' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> completed task <strong>{activity.data.taskTitle}</strong></div>}
+                      {activity.type === 'new_participant' && <div><a href="#d" onClick={this.prevent}>{activity.user.name}</a> assigned new participant <a href="#d" onClick={this.prevent}><strong>{activity.data.userName}</strong></a></div>}
+
+                      <div className="text-muted small">{activity.date} ago</div>
+                    </Media.Body>
+                  </Media>
+                )}
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </div>
