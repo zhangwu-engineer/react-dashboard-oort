@@ -218,11 +218,10 @@ class ProjectDetails extends Component {
 
           </Col>
           <Col>
-
-            {/* Tabs */}
-            <div className="nav-tabs-top mb-4">
-              <Tabs defaultActiveKey="users">
-                <Tab eventKey="users" title="Users">
+            <Row>
+              <Col md={12} xl={6}>
+                <Card className="mb-4">
+                  <Card.Header as="h6">Users</Card.Header>
                   <Card.Body>
                       {this.state.projectData.team.map((member, index) =>
                           <Media className="align-items-center pb-3" key={index}>
@@ -241,8 +240,11 @@ class ProjectDetails extends Component {
                     <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add user</Button>&nbsp;
                     <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
                   </Card.Footer>
-                </Tab>
-                <Tab eventKey="resources" title="Resources">
+                </Card>
+              </Col>
+              <Col md={12} xl={6}>
+                <Card className="mb-4">
+                  <Card.Header as="h6">Resources</Card.Header>
                   <Card.Body>
                       {this.state.projectData.resources.map((resource, index) =>
                           <Media className="align-items-center pb-3" key={index}>
@@ -258,10 +260,14 @@ class ProjectDetails extends Component {
                     <Button variant="primary"><i className="ion ion-md-add"></i>&nbsp; Add Application</Button>&nbsp;
                     <Button variant="default md-btn-flat"><i className="ion ion-md-close"></i>&nbsp; Clear</Button>
                   </Card.Footer>
-                </Tab>
-                <Tab eventKey="activity" title="Activity">
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Card className="mb-4">
+                  <Card.Header as="h6">Activity </Card.Header>
                   <Card.Body>
-
                     {this.state.projectData.activities.map(activity =>
                       <Media key={`${activity.type}${activity.date}${activity.user.name}`} className="pb-1 mb-3">
                         <div className="ui-feed-icon-container">
@@ -284,15 +290,11 @@ class ProjectDetails extends Component {
                     )}
 
                   </Card.Body>
-                </Tab>
-              </Tabs>
-              {/* / Tabs */}
-            </div>
-
+                </Card>
+              </Col>
+            </Row>
           </Col>
-          
         </Row>
-
       </div>
     )
   }
