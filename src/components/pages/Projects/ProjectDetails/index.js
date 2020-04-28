@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
-import { Breadcrumb, Button, Badge, Card, Tabs, Tab, Row, Col, Media, ProgressBar, ListGroup } from 'react-bootstrap'
+import { Breadcrumb, Button, Badge, Card, Row, Col, Media, ProgressBar, ListGroup } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import '../../../../vendor/styles/pages/projects.scss'
 import '../../../../vendor/libs/react-datepicker/react-datepicker.scss'
