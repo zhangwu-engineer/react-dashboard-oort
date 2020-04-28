@@ -7,6 +7,7 @@ import Signin from '../components/pages/Signin';
 
 // Routes
 import { DefaultLayout, titleTemplate, routes } from '../routes'
+import {withOktaAuth} from "@okta/okta-react";
 
 export default withRouter(class AppWithRouterAccess extends Component {
   constructor(props) {
@@ -97,10 +98,16 @@ export default withRouter(class AppWithRouterAccess extends Component {
           <SecureRoute
             path={route.path}
             exact={route.exact}
-            component={props => {
+            component={withOktaAuth(props => {
               // On small screens collapse sidenav
               if (window.layoutHelpers && window.layoutHelpers.isSmallScreen()) {
                 window.layoutHelpers.setCollapsed(true, false)
+              }
+
+              if (props.authState.isAuthenticated) {
+                // Update the access token cookie whenever navigating to a page while authorized
+                // This token is used by the dataplane to identify the user
+                document.cookie = `okta_token=${props.authState.accessToken}; domain=${config.OORT_TOKEN_DOMAIN}`
               }
 
               // Scroll page to top on route render
@@ -110,7 +117,7 @@ export default withRouter(class AppWithRouterAccess extends Component {
               return <route.layout location={{ pathname: route.path }} {...props}>
                 <route.component {...props} setTitle={this.setTitle} scrollTop={this.scrollTop} />
               </route.layout>
-            }}
+            })}
             key={route.path}
           />
         ))}
