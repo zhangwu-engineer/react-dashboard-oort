@@ -66,7 +66,7 @@ class LayoutSidenav extends Component {
           <Sidenav.RouterLink to="/applications" icon="ion ion-md-apps">Applications</Sidenav.RouterLink>
           <Sidenav.RouterLink to="/gateways" icon="ion ion-md-git-network">Gateways</Sidenav.RouterLink>
           <Sidenav.RouterLink to="/users" icon="ion ion-md-people">Users</Sidenav.RouterLink>
-          <Sidenav.RouterLink to="/activity-logs">Activity Logs</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/activity-logs" icon="ion ion-md-list">Activity Logs</Sidenav.RouterLink>
           <Sidenav.RouterLink to="/insights" icon="ion ion-md-eye">Insights</Sidenav.RouterLink>
         </div>
       </Sidenav>
